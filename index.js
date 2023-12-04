@@ -13,7 +13,7 @@ function Spa() {
         <Link to="/about/">About</Link> --
         <Link to="/products">Products</Link>
         <hr />
-        <UserContext.Provider values={{ users: "peter" }}>
+        <UserContext.Provider value={{ users: ["peter"] }}>
           <Route path="/" exact component={Home} />
           <Route path="/about/" component={About} />
           <Route path="/products/" component={Products} />

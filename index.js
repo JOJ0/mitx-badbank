@@ -13,8 +13,6 @@ function Spa() {
         <hr />
         <UserContext.Provider value={{ users: ["peter"] }}>
           <Route path="/" exact component={Home} />
-          <Route path="/about/" component={About} />
-          <Route path="/products/" component={Products} />
         </UserContext.Provider>
       </div>
     </HashRouter>

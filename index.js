@@ -3,7 +3,6 @@ function Spa() {
   return (
     <HashRouter>
       <div>
-        <h1>Welcome to Bad Bank</h1>
         <NavBar />
         <hr />
         <UserContext.Provider value={

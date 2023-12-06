@@ -1,18 +1,23 @@
-const UserContext = React.createContext(null);
-const Route = ReactRouterDOM.Route;
-const HashRouter = ReactRouterDOM.HashRouter;
-const Link = ReactRouterDOM.Link;
-
 function Spa() {
 
   return (
     <HashRouter>
       <div>
-        <h1>Routing - Hello World</h1>
-        <Nav />
+        <h1>Welcome to Bad Bank</h1>
+        <NavBar />
         <hr />
-        <UserContext.Provider value={{ users: ["peter"] }}>
+        <UserContext.Provider value={
+			{users: [
+				{name:"abel",email:"abel@mit.edu",password:"secret",balance:100}
+			]} 
+		}>
           <Route path="/" exact component={Home} />
+          <Route path="/createaccount/" exact component={CreateAccount} />
+          <Route path="/login/" exact component={Login} />
+          <Route path="/deposit/" exact component={Deposit} />
+          <Route path="/withdraw/" exact component={Withdraw} />
+          <Route path="/balance/" exact component={Balance} />
+          <Route path="/alldata/" exact component={AllData} />
         </UserContext.Provider>
       </div>
     </HashRouter>

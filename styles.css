@@ -1,10 +1,51 @@
+body {
+  font-family: 'Spline Sans Mono', sans-serif;
+  font-weight: 400;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'AR One Sans', sans-serif;
+  font-weight: 900;
+  font-size: 2.4rem;
+  letter-spacing: 1.6px;
+  line-height: 2.5rem;
+}
+
 a {
   color: rgba(var(--dark_400), 1);
 }
 
-a:hover, a:active {
+a:hover, a:active{
   text-decoration: line-through;
-  color: rgba(var(--dark_400), 1);
+}
+
+.navbar-nav {
+  font-family: 'AR One Sans', sans-serif;
+  font-weight: 400;
+  font-size: 1.2rem;
+  letter-spacing: 0.1px;
+  line-height: 2.5rem;
+}
+
+.nav-link {
+}
+
+.navbar-brand {
+  font-size: 1.8rem;
+}
+
+.navbar-brand:hover {
+  text-decoration: none;  /* disable our general link-hover style*/
+}
+
+.nav-link:hover {
+  text-decoration: none;  /* disable our general link-hover style*/
+  border-bottom: 1px solid;
+}
+
+.nav-link.active {
+  color: rgba(var(--dark_800), 1);
+  border-bottom: 1px solid;
 }
 
 .obfuscate {
@@ -19,22 +60,6 @@ a:hover, a:active {
   margin-left: 1em;
 }
 
-body {
-  /*font-family: 'Spline Sans Mono', sans-serif;*/
-  font-family: 'AR One Sans', sans-serif;
-  font-weight: 400;
-}
-
-.navbar-nav {
-  font-weight: 400;
-  letter-spacing: 2.0px;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  font-weight: 700;
-  line-height: 1.6;
-  letter-spacing: 2.6px;
-}
 
 .card-body {
   font-size: 1em;

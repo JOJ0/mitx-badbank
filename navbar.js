@@ -1,9 +1,11 @@
+const NavLink = ReactRouterDOM.NavLink;
+
 function NavBar() {
 
   return (
     <nav className="navbar navbar-expand-sm navbar-light bg-light">
       <div className="container-fluid">
-        <Link className="navbar-brand" to="/">BadBank</Link>
+        <NavLink className="navbar-brand" to="/">TermBank</NavLink>
 
         <button className="navbar-toggler" type="button"
           data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
@@ -15,19 +17,19 @@ function NavBar() {
         <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
 
           <ul className="navbar-nav me-auto mb-lg-0">
-            <li className="nav-item">
+            <li className="nav-item" onMouseOver={ (event) => { console.log('Mouse Over Event was fired') }}>
+              <NavLink className="nav-link" to="/createaccount/">
+                CreateAccount
+              </NavLink>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/createaccount/">Create Account</Link>
+              <NavLink className="nav-link" to="/deposit/">Deposit</NavLink>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/deposit/">Deposit</Link>
+              <NavLink className="nav-link" to="/withdraw/">Withdraw</NavLink>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/withdraw/">Withdraw</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/alldata/">All Data</Link>
+              <NavLink className="nav-link" to="/alldata/">AllData</NavLink>
             </li>
           </ul>
 

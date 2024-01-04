@@ -5,10 +5,7 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: 'AR One Sans', sans-serif;
-  font-weight: 900;
   font-size: 2.4rem;
-  letter-spacing: 1.6px;
-  line-height: 2.5rem;
 }
 
 a {
@@ -65,14 +62,20 @@ a:hover, a:active{
   font-size: 1em;
 }
 
+.card-header {
+  font-family: 'AR One Sans', sans-serif;
+  font-weight: 900;
+  font-size: 2.2rem;
+  letter-spacing: 1.6px;
+  line-height: 2.5rem;
+}
+
 .card-title {
   letter-spacing: 0;
   font-size: 1em;
-  #font-family: 'Spline Sans Mono';
 }
 .card-text {
   font-size: 0.8em;
-  #font-family: 'AR One Sans', sans-serif;
 }
 .card-status {
   letter-spacing: 0;

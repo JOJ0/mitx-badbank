@@ -8,18 +8,22 @@ function CreateAccount(){
 
   function validate(field, label) {
     if (!field) {
-      setStatus("Error:" + label)
-      setTimeout(() => setStatus('', 3000));
+      const errMsg = `Field '${label}' is empty!`;
+      console.log(errMsg);
+      setStatus('Error: ' + errMsg);
+      //setTimeout(() => setStatus('', 3000));
       return false;
     }
     return true;
   }
 
   function handleCreate() {
-    console.log(name, email, password);
+    console.log("handleCreate received:", name, email, password);
     if (!validate(name, 'name')) return;
     if (!validate(email, 'email')) return;
     if (!validate(password, 'password')) return;
+    // If we made it to here, no errors noted.
+    setStatus('');
     ctx.users.push({name, email, password, balance:100})
     setShow(false);
   }
@@ -28,6 +32,7 @@ function CreateAccount(){
     setName('');
     setEmail('');
     setPassword('');
+    setStatus('');
     setShow(true);
   }
 
@@ -35,7 +40,7 @@ function CreateAccount(){
     <Card
       bgcolor="primary"
       header="Create Account"
-      states={status}
+      status={status}
       body={show ? (
         <>
         Name<br/>

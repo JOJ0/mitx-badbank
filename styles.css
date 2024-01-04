@@ -16,9 +16,19 @@ a {
 a:hover, a:active{
   text-decoration: line-through;
 }
+
+hr {
+  padding-top: 0;
+  margin-top: 0;
+  padding-bottom: 2rem;
+  margin-bottom: 2rem;
+}
 /* Common Elements Layout END */
 
 /* Navigation Layout START */
+.navbar {
+}
+
 .navbar-nav {
   font-family: 'AR One Sans', sans-serif;
   font-weight: 400;

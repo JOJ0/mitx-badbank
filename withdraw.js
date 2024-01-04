@@ -1,14 +1,13 @@
-
 function Withdraw() {
   const ctx = React.useContext(UserContext);
 
   return (
-    <div>
-      <h3>Withdraw</h3>
-      <p>
-        Welcome to the site - happy to see you
-        {JSON.stringify(ctx.users)}
-      </p>
-    </div>
+    <Card
+      header="Withdraw"
+      title="Request money from us but don't receive it!"
+      text={"User: " + JSON.stringify(ctx.users[0].name)}
+      body="Card Body"
+      txtcolor="black"
+    />
   );
 }

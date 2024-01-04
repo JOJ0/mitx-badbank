@@ -1,14 +1,13 @@
-
 function Deposit() {
   const ctx = React.useContext(UserContext);
 
   return (
-    <div>
-      <h3>Deposit</h3>
-      <p>
-        Welcome to the site - happy to see you
-        {JSON.stringify(ctx.users)}
-      </p>
-    </div>
+    <Card
+      header="Deposit"
+      title="Throw money at us!"
+      text={"User: " + JSON.stringify(ctx.users[0].name)}
+      body="Card Body"
+      txtcolor="black"
+    />
   );
 }

@@ -3,9 +3,9 @@ function Home() {
   return (
     <Card
       txtcolor="black"
-      header="BadBank Landing Page"
-      title="Welcome to the bank"
-      text="You can use this bank"
+      header="Welcome to TermBank"
+      title="We terminate your money!"
+      text="Quick and hasslefree!"
       body={(<img src="bank.png" className="img-fluid" alt="Responsive image" />)}
     />
   );

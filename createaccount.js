@@ -55,7 +55,7 @@ function CreateAccount(){
       [fieldName]: fieldValue
     });
     // No matter which field, if it's empty, disable submit button; sufficient for now...
-    if (fieldValue == '') {
+    if (validateOnChange() == false) {
       setSubmitAllowed(false);
     }
     else {
@@ -68,6 +68,14 @@ function CreateAccount(){
     if (! submitAllowed) classes += " disabled";
     console.log("In styleSubmitButton classes is: " + classes)
     return classes
+  }
+
+  function validateOnChange() {
+    let currentFormFields = {...formFields};  // try to fix bug by assigning state object to new local name
+    if (currentFormFields['name'] == '' || currentFormFields['email'] == '' || currentFormFields['password'] == '') {
+      return false;
+    }
+    return true;
   }
 
   return (

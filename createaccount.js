@@ -5,6 +5,11 @@ function CreateAccount(){
   const [email, setEmail]       = React.useState('');
   const [password, setPassword] = React.useState('');
   const [submitAllowed, setSubmitAllowed] = React.useState(false);
+  const [formFields, setFormFields] = React.useState({
+    name: '',
+    email: '',
+    password: '',
+  });
   const ctx = React.useContext(UserContext);
 
   function validate(field, label) {
@@ -43,11 +48,12 @@ function CreateAccount(){
     // console.log(event)  // prints all data of the event object, use for detailed debugging
     let fieldName = event.target.id;
     let fieldValue = event.target.value;
-    // We have to update the state variable since the input field's "value"
+    // We have to update the state object since the input field's "value"
     // property uses it (otherwise it would stay empty)
-    if (fieldName == 'name') setName(fieldValue);
-    if (fieldName == 'email') setEmail(fieldValue);
-    if (fieldName == 'password') setPassword(fieldValue);
+    setFormFields({
+      ...formFields,
+      [fieldName]: fieldValue
+    });
     // No matter which field, if it's empty, disable submit button; sufficient for now...
     if (fieldValue == '') {
       setSubmitAllowed(false);
@@ -72,11 +78,11 @@ function CreateAccount(){
       body={show ? (
         <>
         Name<br/>
-        <input type="input" className="form-control" id="name" placeholder="Enter name" value={name} onChange={handleChange} /><br/>
+        <input type="input" className="form-control" id="name" placeholder="Enter name" value={formFields['name']} onChange={handleChange} /><br/>
         Email address<br/>
-        <input type="input" className="form-control" id="email" placeholder="Enter email" value={email} onChange={handleChange} /><br/>
+        <input type="input" className="form-control" id="email" placeholder="Enter email" value={formFields['email']} onChange={handleChange} /><br/>
         Password<br/>
-        <input type="password" className="form-control" id="password" placeholder="Enter password" value={password} onChange={handleChange} /><br/>
+        <input type="password" className="form-control" id="password" placeholder="Enter password" value={formFields['password']} onChange={handleChange} /><br/>
 
         <button type="submit" className={styleSubmitButton()} onClick={handleCreate}>Create account</button>
         </>

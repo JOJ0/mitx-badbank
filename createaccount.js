@@ -1,7 +1,7 @@
 function CreateAccount(){
   const [show, setShow]         = React.useState(true);
   const [status, setStatus]     = React.useState('');
-  const [formFields, handleChange] = useCreateAccountForm({
+  const {formFields, handleChange} = useCreateAccountForm({
     name: '',
     email: '',
     password: '',

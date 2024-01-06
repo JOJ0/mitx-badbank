@@ -1,7 +1,7 @@
 function CreateAccount(){
   const [show, setShow]         = React.useState(true);
   const [status, setStatus]     = React.useState('');
-  const {formFields, handleChange} = useCreateAccountForm({
+  const {formFields, handleChange, resetForm} = useCreateAccountForm({
     name: '',
     email: '',
     password: '',
@@ -31,10 +31,10 @@ function CreateAccount(){
   }
 
   function clearForm() {
-    // Since we are using a custom hook for those, we call handleChange as the
-    // "kind of" setState function. FIXME this does not work yet. Commit it for
-    // now and move on with refactoring the custom hook!!!
-    handleChange({
+    // Since we are using a custom hook for saving our form values we are
+    // required to provide a reset functionality within that hook. (see
+    // destructuring statement on top of this file)
+    resetForm({
       name: '',
       email: '',
       password: '',

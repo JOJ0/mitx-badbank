@@ -26,9 +26,18 @@ function useCreateAccountForm(initialValues) {
     }
   }
 
+  function reset() {
+    setStateObj({
+      name: '',
+      email: '',
+      password: ''
+    });
+  }
+
   const inputProps = {
     formFields: stateObj,
     handleChange: handle,
+    resetForm: reset
   };
 
   return inputProps;

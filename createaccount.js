@@ -21,12 +21,17 @@ function CreateAccount(){
 
   function handleCreate() {
     console.log("handleCreate received:", name, email, password);
-    if (!validate(formFields['name'], 'name')) return;
-    if (!validate(formFields['email'], 'email')) return;
-    if (!validate(formFields['password'], 'password')) return;
+    if (!validate(formFields.name, 'name')) return;
+    if (!validate(formFields.email, 'email')) return;
+    if (!validate(formFields.password, 'password')) return;
     // If we made it to here, no errors noted.
     setStatus('');
-    ctx.users.push({name, email, password, balance:100})
+    ctx.users.push({
+      name: formFields.name,
+      email: formFields.email,
+      password: formFields.password,
+      balance:100
+    })
     setShow(false);
   }
 

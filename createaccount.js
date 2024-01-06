@@ -21,9 +21,9 @@ function CreateAccount(){
 
   function handleCreate() {
     console.log("handleCreate received:", name, email, password);
-    if (!validate(name, 'name')) return;
-    if (!validate(email, 'email')) return;
-    if (!validate(password, 'password')) return;
+    if (!validate(formFields['name'], 'name')) return;
+    if (!validate(formFields['email'], 'email')) return;
+    if (!validate(formFields['password'], 'password')) return;
     // If we made it to here, no errors noted.
     setStatus('');
     ctx.users.push({name, email, password, balance:100})
@@ -31,9 +31,14 @@ function CreateAccount(){
   }
 
   function clearForm() {
-    setName('');
-    setEmail('');
-    setPassword('');
+    // Since we are using a custom hook for those, we call handleChange as the
+    // "kind of" setState function. FIXME this does not work yet. Commit it for
+    // now and move on with refactoring the custom hook!!!
+    handleChange({
+      name: '',
+      email: '',
+      password: '',
+    });
     setStatus('');
     setShow(true);
   }

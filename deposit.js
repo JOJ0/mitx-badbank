@@ -1,13 +1,19 @@
 function Deposit() {
   const ctx = React.useContext(UserContext);
   const [depositValue, setDepositValue] = React.useState(0);
+  const [balance, setBalance]     = React.useState(0);  // We want a re-render when this state changes
   const [status, setStatus]     = React.useState('');
+
+  function getBalance() {
+    if (balance) return balance;
+    return ctx.users[0].balance;
+  }
 
   function validate(value, label) {
     console.log('Function validate got value: ', value);
     let err = false;
     let errMsg = ""
-    if (value === 0) {
+    if (value == 0) {
       errMsg = `C'mon, that is not enough! (Zero Amount Warning)`;
       err = true;
     }
@@ -21,6 +27,7 @@ function Deposit() {
     }
     else {
       setStatus('');
+      setBalance(ctx.users[0].balance);
     }
 
     if (err) {
@@ -37,6 +44,8 @@ function Deposit() {
     if (!validate(depositValue, 'deposit')) return;
     // If we made it to here, no errors noted.
     ctx.users[0].balance += parseInt(depositValue);
+    setStatus('');
+    setBalance(ctx.users[0].balance);
   }
 
   return (
@@ -47,7 +56,7 @@ function Deposit() {
       status={status}
       body={
         <>
-        <h4>Current balance: ${ctx.users[0].balance}</h4>
+        <h4>Current balance: ${getBalance()}</h4>
         How much to throw?<br/>
         <input type="input" className="form-control" id="deposit" placeholder="Enter Amount" value={depositValue}
           onChange={e => setDepositValue(e.currentTarget.value)} /><br/>

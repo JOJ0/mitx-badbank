@@ -7,7 +7,7 @@ function Spa() {
         <hr />
         <UserContext.Provider value={
 			{users: [
-				{name:"abel",email:"abel@mit.edu",password:"secret",balance:100}
+				{name:"Abel",email:"abel@mit.edu",password:"secret",balance:100}
 			]} 
 		}>
           <Route path="/" exact component={Home} />

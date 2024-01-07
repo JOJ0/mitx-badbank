@@ -51,17 +51,19 @@ function Deposit() {
   return (
     <Card
       header="Deposit"
-      title="Throw money at us!"
-      text={"Assuming User ID zero (as soon will be your money too). Hi " + JSON.stringify(ctx.users[0].name)}
+      title={`Hi ${ctx.users[0].name}, please throw money at us!`}
+      text={"(Assuming User 0 - as soon will be your money too)"}
       status={status}
       body={
         <>
-        <h4>Current balance: ${getBalance()}</h4>
-        How much to throw?<br/>
-        <input type="input" className="form-control" id="deposit" placeholder="Enter Amount" value={depositValue}
-          onChange={e => setDepositValue(e.currentTarget.value)} /><br/>
+        <div className="card-title">Current balance: ${getBalance()}</div>
+        <form>
+          How much to throw?<br/>
+          <input type="input" className="form-control" id="deposit" placeholder="Enter Amount" value={depositValue}
+            onChange={e => setDepositValue(e.currentTarget.value)} /><br/>
 
-        <button type="submit" className="btn btn-light" onClick={handleDeposit}>Deposit</button>
+          <button type="submit" className="btn btn-light" onClick={handleDeposit}>Deposit</button>
+        </form>
         </>
       }
       txtcolor="black"

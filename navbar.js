@@ -1,6 +1,27 @@
 const NavLink = ReactRouterDOM.NavLink;
 
 function NavBar() {
+  const [isHoveringCreate, setIsHoveringCreate] = React.useState(false);
+  const [isHoveringDeposit, setIsHoveringDeposit] = React.useState(false);
+  const [isHoveringWithdraw, setIsHoveringWithdraw] = React.useState(false);
+  const [isHoveringData, setIsHoveringData] = React.useState(false);
+
+  const handleMouseOver = (event, navItem) => {
+    console.log("handleMouseOver received:", navItem);
+    if (navItem == "nav-create") setIsHoveringCreate(true);
+    if (navItem == "nav-deposit") setIsHoveringDeposit(true);
+    if (navItem == "nav-withdraw") setIsHoveringWithdraw(true);
+    if (navItem == "nav-data") setIsHoveringData(true);
+  };
+
+  const handleMouseOut = (event, navItem) => {
+    console.log("handleMouseOut received:", navItem);
+    if (navItem == "nav-create") setIsHoveringCreate(false);
+    if (navItem == "nav-deposit") setIsHoveringDeposit(false);
+    if (navItem == "nav-withdraw") setIsHoveringWithdraw(false);
+    if (navItem == "nav-data") setIsHoveringData(false);
+  };
+
 
   return (
     <nav className="navbar navbar-expand-sm navbar-light bg-light">
@@ -15,26 +36,50 @@ function NavBar() {
         </button>
 
         <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-
           <ul className="navbar-nav me-auto mb-lg-0">
-            <li className="nav-item" onMouseOver={ (event) => { console.log('Mouse Over Event was fired') }}>
-              <NavLink className="nav-link" to="/createaccount/">
-                CreateAccount
-              </NavLink>
+            <li className="nav-item" name="nav-create"
+              onMouseOver={() => handleMouseOver(event, 'nav-create')}
+              onMouseOut={() => handleMouseOut(event, 'nav-create')}
+            >
+              <NavLink className="nav-link" to="/createaccount/">CreateAccount</NavLink>
             </li>
-            <li className="nav-item">
+            <li className="nav-item" name="nav-deposit"
+              onMouseOver={() => handleMouseOver(event, 'nav-deposit')}
+              onMouseOut={() => handleMouseOut(event, 'nav-deposit')}
+            >
               <NavLink className="nav-link" to="/deposit/">Deposit</NavLink>
             </li>
-            <li className="nav-item">
+            <li className="nav-item" name="nav-withdraw"
+              onMouseOver={() => handleMouseOver(event, 'nav-withdraw')}
+              onMouseOut={() => handleMouseOut(event, 'nav-withdraw')}
+            >
               <NavLink className="nav-link" to="/withdraw/">Withdraw</NavLink>
             </li>
-            <li className="nav-item">
+            <li className="nav-item" name="nav-data"
+              onMouseOver={() => handleMouseOver(event, 'nav-data')}
+              onMouseOut={() => handleMouseOut(event, 'nav-data')}
+            >
               <NavLink className="nav-link" to="/alldata/">AllData</NavLink>
             </li>
           </ul>
-
         </div>
       </div>
+
+      <div className="container">
+        <div className={isHoveringCreate ? "nav-tooltip-visible" : "nav-tooltip-hidden"}>
+          This page lets you create user accounts.
+        </div>
+        <div className={isHoveringDeposit ? "nav-tooltip-visible" : "nav-tooltip-hidden"}>
+          This page let's you throw money at us.
+        </div>
+        <div className={isHoveringWithdraw ? "nav-tooltip-visible" : "nav-tooltip-hidden"}>
+          This page lets you withdraw money.
+        </div>
+        <div className={isHoveringData ? "nav-tooltip-visible" : "nav-tooltip-hidden"}>
+          This page lists all users data.
+        </div>
+      </div>
+
     </nav>
   );
 }

@@ -6,10 +6,10 @@ function Spa() {
         <NavBar />
         <hr />
         <UserContext.Provider value={
-			{users: [
-				{name:"Abel",email:"abel@mit.edu",password:"secret",balance:100}
-			]} 
-		}>
+          {users: [
+            {name:"Abel",email:"abel@mit.edu",password:"secret",balance:100}
+          ]}
+        }>
           <Route path="/" exact component={Home} />
           <Route path="/createaccount/" exact component={CreateAccount} />
           <Route path="/deposit/" exact component={Deposit} />

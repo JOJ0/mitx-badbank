@@ -67,19 +67,23 @@ function CreateAccount(){
       status={status}
       body={show ? (
         <>
-        Name<br/>
-        <input type="input" className="form-control" id="name" placeholder="Enter name" value={formFields.name} onChange={handleChange} /><br/>
-        Email address<br/>
-        <input type="input" className="form-control" id="email" placeholder="Enter email" value={formFields.email} onChange={handleChange} /><br/>
-        Password<br/>
-        <input type="password" className="form-control" id="password" placeholder="Enter password" value={formFields.password} onChange={handleChange} /><br/>
+        <form>
+          Name<br/>
+          <input type="input" className="form-control" id="name" placeholder="Enter name" value={formFields.name} onChange={handleChange} /><br/>
+          Email address<br/>
+          <input type="input" className="form-control" id="email" placeholder="Enter email" value={formFields.email} onChange={handleChange} /><br/>
+          Password<br/>
+          <input type="password" className="form-control" id="password" placeholder="Enter password" value={formFields.password} onChange={handleChange} /><br/>
 
-        <button type="submit" className={styleSubmitButton()} onClick={handleCreate}>Create account</button>
+          <button type="submit" className={styleSubmitButton()} onClick={handleCreate}>Create account</button>
+        </form>
         </>
       ):(
         <>
-        <h5>Success</h5>
-        <button type="submit" className="btn btn-light" onClick={clearForm}>Add another account</button>
+        <form>
+          <h5>Success</h5>
+          <button type="submit" className="btn btn-light" onClick={clearForm}>Add another account</button>
+          </form>
         </>
       )}
     / >

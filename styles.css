@@ -78,10 +78,17 @@ hr {
   font-size: 0.8em;
 }
 
-.card-status {
+.card-status-error {
   letter-spacing: 0;
   margin-top: 2px;
   font-size: 0.6em;
-  background-color: yellow;
+  background-color: lightcoral;
+}
+
+.card-status-success {
+  letter-spacing: 0;
+  margin-top: 2px;
+  font-size: 0.6em;
+  background-color: lightgreen;
 }
 /* Card Layout END */

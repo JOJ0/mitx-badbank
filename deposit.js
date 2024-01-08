@@ -3,6 +3,7 @@ function Deposit() {
   const [depositValue, setDepositValue] = React.useState('');
   const [balance, setBalance]     = React.useState(0);  // We want a re-render when this state changes
   const [status, setStatus]     = React.useState('');
+  const [statusType, setStatusType]     = React.useState('error');  // 'success' styles Card status green instead of red
 
   function styleSubmitButton() {
     let classes = "btn btn-light";
@@ -43,6 +44,7 @@ function Deposit() {
     if (err) {
       console.log(errMsg);
       setStatus('Error: ' + errMsg);
+      setStatusType('error')
       //setTimeout(() => setStatus('', 3000));
       return false;
     }
@@ -54,7 +56,8 @@ function Deposit() {
     if (!validate(depositValue, 'deposit')) return;
     // If we made it to here, no errors noted.
     ctx.users[0].balance += parseInt(depositValue);
-    setStatus('');
+    setStatus("Thanks for your deposit. Consider your money terminated!");
+    setStatusType('success')
     setBalance(ctx.users[0].balance);
   }
 
@@ -64,6 +67,7 @@ function Deposit() {
       title={`Hi ${ctx.users[0].name}, please throw money at us!`}
       text={"(Assuming User 0 - as soon will be your money too)"}
       status={status}
+      statusType={statusType}
       body={
         <>
         <div className="card-title">Current balance: ${getBalance()}</div>

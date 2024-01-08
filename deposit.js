@@ -5,19 +5,14 @@ function Deposit() {
   const [status, setStatus]     = React.useState('');
   const [statusType, setStatusType]     = React.useState('error');  // 'success' styles Card status green instead of red
 
-  function styleSubmitButton() {
-    let classes = "btn btn-light";
-    if (depositValue === '') {  // Catch empty AND string (triple equal sign) - we don't want to
-                                // prevent inputting 0, we have another check for that in handleDeposit)
-      console.log("Warning in Deposit styleSubmitButton: Input field empty. Submit disabled.");
-      classes += " disabled"
-    }
-    return classes
-  }
-
-  function getBalance() {
-    if (balance) return balance;
-    return ctx.users[0].balance;
+  function handleDeposit() {
+    console.log("handleDeposit received:", deposit);
+    if (!validate(depositValue, 'deposit')) return;
+    // If we made it to here, no errors noted.
+    ctx.users[0].balance += parseInt(depositValue);
+    setStatus("Thanks for your deposit. Consider your money terminated!");
+    setStatusType('success')
+    setBalance(ctx.users[0].balance);
   }
 
   function validate(value, label) {
@@ -41,25 +36,15 @@ function Deposit() {
       setBalance(ctx.users[0].balance);
     }
 
-    if (err) {
-      console.log(errMsg);
-      setStatus('Error: ' + errMsg);
-      setStatusType('error')
-      //setTimeout(() => setStatus('', 3000));
-      return false;
-    }
-    return true;
+  if (err) {
+    console.log(errMsg);
+    setStatus('Error: ' + errMsg);
+    setStatusType('error')
+    //setTimeout(() => setStatus('', 3000));
+    return false;
   }
-
-  function handleDeposit() {
-    console.log("handleDeposit received:", deposit);
-    if (!validate(depositValue, 'deposit')) return;
-    // If we made it to here, no errors noted.
-    ctx.users[0].balance += parseInt(depositValue);
-    setStatus("Thanks for your deposit. Consider your money terminated!");
-    setStatusType('success')
-    setBalance(ctx.users[0].balance);
-  }
+  return true;
+}
 
   return (
     <Card
@@ -70,13 +55,13 @@ function Deposit() {
       statusType={statusType}
       body={
         <>
-        <div className="card-title">Current balance: ${getBalance()}</div>
+        <div className="card-title">Current balance: ${getBalance(balance)}</div>
         <form>
           How much to throw?<br/>
           <input type="input" className="form-control" id="deposit" placeholder="Enter Amount" value={depositValue}
             onChange={e => setDepositValue(e.currentTarget.value)} /><br/>
 
-          <button type="submit" className={styleSubmitButton()} onClick={handleDeposit}>Deposit</button>
+          <button type="submit" className={styleSubmitButton(depositValue)} onClick={handleDeposit}>Deposit</button>
         </form>
         </>
       }

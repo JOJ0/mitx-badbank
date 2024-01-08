@@ -3,6 +3,22 @@ const Route = ReactRouterDOM.Route;
 const HashRouter = ReactRouterDOM.HashRouter;
 const Link = ReactRouterDOM.Link;
 
+function styleSubmitButton(depositValue) {
+  let classes = "btn btn-light";
+  if (depositValue === '') {  // Catch empty AND string (triple equal sign) - we don't want to
+                              // prevent inputting 0, we have another check for that in validate function)
+    console.log("Warning in common styleSubmitButton: Input field empty. Submit disabled.");
+    classes += " disabled"
+  }
+  return classes
+}
+
+function getBalance(balance) {
+  const ctx = React.useContext(UserContext);
+  if (balance) return balance;
+  return ctx.users[0].balance;
+}
+
 function Card(props) {
   function classes() {
     const bg = props.bgcolor ? 'bg-' + props.bgcolor : ' ';

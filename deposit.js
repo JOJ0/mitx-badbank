@@ -1,8 +1,18 @@
 function Deposit() {
   const ctx = React.useContext(UserContext);
-  const [depositValue, setDepositValue] = React.useState(0);
+  const [depositValue, setDepositValue] = React.useState('');
   const [balance, setBalance]     = React.useState(0);  // We want a re-render when this state changes
   const [status, setStatus]     = React.useState('');
+
+  function styleSubmitButton() {
+    let classes = "btn btn-light";
+    if (depositValue === '') {  // Catch empty AND string (triple equal sign) - we don't want to
+                                // prevent inputting 0, we have another check for that in handleDeposit)
+      console.log("Warning in Deposit styleSubmitButton: Input field empty. Submit disabled.");
+      classes += " disabled"
+    }
+    return classes
+  }
 
   function getBalance() {
     if (balance) return balance;
@@ -62,7 +72,7 @@ function Deposit() {
           <input type="input" className="form-control" id="deposit" placeholder="Enter Amount" value={depositValue}
             onChange={e => setDepositValue(e.currentTarget.value)} /><br/>
 
-          <button type="submit" className="btn btn-light" onClick={handleDeposit}>Deposit</button>
+          <button type="submit" className={styleSubmitButton()} onClick={handleDeposit}>Deposit</button>
         </form>
         </>
       }

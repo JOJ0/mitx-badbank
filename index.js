@@ -1,24 +1,29 @@
-function Spa() {
+var express = require('express');
+var app = express();
+var cors = require('cors');
 
-  return (
-    <HashRouter>
-      <div>
-        <NavBar />
-        <hr />
-        <UserContext.Provider value={
-          {users: [
-            {name:"Abel",email:"abel@mit.edu",password:"secret",balance:100}
-          ]}
-        }>
-          <Route path="/" exact component={Home} />
-          <Route path="/createaccount/" exact component={CreateAccount} />
-          <Route path="/deposit/" exact component={Deposit} />
-          <Route path="/withdraw/" exact component={Withdraw} />
-          <Route path="/alldata/" exact component={AllData} />
-        </UserContext.Provider>
-      </div>
-    </HashRouter>
-  );
-}
+app.use(express.static('public'));
+app.use(cors());
 
-ReactDOM.render(<Spa />, document.getElementById("root"));
+// Create user account route
+app.get('/account/create/:name/:email/:password', (req, res) => {
+  res.send({
+    name: req.params.name,
+    email: req.params.email,
+    password: req.params.password
+  })
+})
+
+
+// List all accounts route
+app.get('/account/all', (req, res) => {
+  res.send({
+    name: 'Peter',
+    email: 'peter@mit.edu',
+    password: 'secret'
+  })
+})
+
+var port = 3000;
+app.listen(port);
+console.log('Running on port ' + port);

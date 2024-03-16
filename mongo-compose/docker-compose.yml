@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  mongo:
+    image: mongo:5
+    container_name: badbank-db
+    # build:
+    #   context: .
+    #  volumes:
+    #   - db_data:/data/db
+    # environment:
+    #   ENV_VAR: xxx 
+    # depends_on:
+    #   - db
+    ports:
+      - '27017:27017'

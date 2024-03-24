@@ -41,7 +41,8 @@ async function create(name, email, password){
     await client.connect();
     db = client.db('myproject');
     const newData = {name, email, password, balance: 0};
-    res = db.collection('users').insertOne(newData);
+    res = await db.collection('users').insertOne(newData);
+    console.log(`Document inserted, id:${res.insertedId}`)
     return res;
 }
 

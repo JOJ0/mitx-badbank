@@ -40,14 +40,9 @@ async function connect() {
 async function create(name, email, password){
     await client.connect();
     db = client.db('myproject');
-    return new Promise((resolve, reject) => {    
-        // Collect the data we want to add into an object
-        const newData = {name, email, password, balance: 0};
-        // And insert into the 'users' collection
-        db.collection('users').insertOne(newData, {w:1}, function(err, result) {
-            err ? reject(err) : resolve(doc);
-        });    
-    })
+    const newData = {name, email, password, balance: 0};
+    res = db.collection('users').insertOne(newData);
+    return res;
 }
 
 // Return all users

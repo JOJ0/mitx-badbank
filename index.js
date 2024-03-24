@@ -6,14 +6,23 @@ var dal = require('./dal.js');
 app.use(express.static('public'));
 app.use(cors());
 
+async function create_user(req) {
+  result = await dal.create(req.params.name, req.params.email, req.params.password)
+  return result;
+}
+
 // Create user account route
 app.get('/account/create/:name/:email/:password', (req, res) => {
-  dal.create(req.params.name, req.params.email, req.params.password)  
-    .then((newUser) => {
-      msg = `Created new user: ${newUser}`
-      console.log(msg);
-      res.send(msg);
-    });
+  try {
+    newUser = create_user(req);
+    msg = `Created new user: ${newUser}`
+    console.log(msg);
+    res.send(msg);
+  }
+  catch (err) {
+    console.error(`Error while creating user: ${err}`);
+    return(err);
+  }
 })
 
 

@@ -6,22 +6,19 @@ var app = express();
 app.use(express.static('public'));
 app.use(cors());
 
-async function create_user(req) {
-  result = await db_user_create(req.params.name, req.params.email, req.params.password)
-  return result;
-}
 
 // Create user account route
-app.get('/account/create/:name/:email/:password', (req, res) => {
+app.get('/account/create/:name/:email/:password', async (req, res) => {
   try {
-    newUser = create_user(req);
-    msg = `Created new user: ${newUser}`
+    let newUser = await db_user_create(req.params.name, req.params.email, req.params.password)
+    let msg = `/account/create endpoint created new user: ${newUser}`
     console.log(msg);
-    res.send(msg);
+    res.send(msg).status(200);
   }
   catch (err) {
-    console.error(`Error while creating user: ${err}`);
-    return(err);
+    let msg = `Error in /account/create endpoint: ${err}`
+    console.error(msg);
+    res.send(msg).status(500);
   }
 })
 

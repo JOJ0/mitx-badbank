@@ -5,12 +5,16 @@ console.log("We are running Data Abstraction Layer.")
 
 // Create user account
 async function db_user_create(name, email, password){
-    await client.connect();
-    db = client.db('myproject');
+  try {
     const newData = {name, email, password, balance: 0};
-    res = await db.collection('users').insertOne(newData);
-    console.log(`Document inserted, id:${res.insertedId}`)
+    let res = await db.collection('users').insertOne(newData);
+    console.log(`db_user_create() inserted, id:${res.insertedId}`)
     return res;
+  }
+  catch (err) {
+    console.error(`Error in db_user_create(): ${err}`);
+    return(err);
+  }
 }
 
 async function db_user_all(){

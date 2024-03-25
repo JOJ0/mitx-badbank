@@ -27,11 +27,11 @@ app.get('/account/create/:name/:email/:password', (req, res) => {
 
 
 // List all accounts route
-app.get('/account/all', (req, res) => {
+app.get('/account/all',(req, res) => {
   db_user_all()
     .then((documents) => {
       console.log('/account/all endpoint returning data.');
-      res.send(documents);
+      res.send(documents).status(200);
     })
 })
 

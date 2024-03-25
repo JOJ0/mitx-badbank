@@ -14,16 +14,13 @@ async function db_user_create(name, email, password){
 }
 
 async function db_user_all(){
-  //await client.connect();
-  //db = client.db('myproject');
-  var collection = db.collection('users');
   try {
-    res = collection.find({}).toArray();
-    console.log(`dal.all() returning data ${res}`);
+    let res = await db.collection('users').find({}).toArray();
+    console.log(`db_user_all() returning data ${res}`);
     return(res);
   }
   catch (err) {
-    console.error(`Something went wrong: ${err}`);
+    console.error(`Error in db_user_all(): ${err}`);
     return(err);
   }
 }

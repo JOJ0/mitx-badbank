@@ -1,13 +1,13 @@
-var express = require('express');
-var app = express();
-var cors = require('cors');
-var dal = require('./dal.js');
+import express from 'express';
+import cors from 'cors';
+import { db_user_create, db_user_all } from './dal.js';
 
+var app = express();
 app.use(express.static('public'));
 app.use(cors());
 
 async function create_user(req) {
-  result = await dal.create(req.params.name, req.params.email, req.params.password)
+  result = await db_user_create(req.params.name, req.params.email, req.params.password)
   return result;
 }
 
@@ -28,7 +28,7 @@ app.get('/account/create/:name/:email/:password', (req, res) => {
 
 // List all accounts route
 app.get('/account/all', (req, res) => {
-  dal.all()
+  db_user_all()
     .then((documents) => {
       console.log('/account/all endpoint returning data.');
       res.send(documents);

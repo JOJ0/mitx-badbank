@@ -13,20 +13,6 @@ async function db_user_create(name, email, password){
     return res;
 }
 
-// Return all users
-async function all_old(){
-    await client.connect();
-    db = client.db('myproject');
-    return new Promise((resolve, reject) => {    
-        const customers = db
-            .collection('users')
-            .find({})  // No criteria == all
-            .toArray(function(err, docs) {
-                err ? reject(err) : resolve(docs);
-        });    
-    })
-}
-
 async function db_user_all(){
   //await client.connect();
   //db = client.db('myproject');

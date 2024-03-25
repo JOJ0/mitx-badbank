@@ -1,4 +1,4 @@
-const { MongoClient, ServerApiVersion } = require("mongodb");
+import { MongoClient, ServerApiVersion } from "mongodb";
 // FIXME, not sure if these timeout strings actually work
 const uri = 'mongodb://localhost:27017?connectTimeoutMS=1000&socketTimeoutMS=1000';  // ?directConnection=true
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
@@ -10,8 +10,16 @@ const client = new MongoClient(uri, {
     },
   }
 );
-var db = connect();  // instantiate to something
 
+let conn;
+try {
+  conn = await client.connect();
+} catch(e) {
+  console.error(e);
+}
+let db = conn.db("myproject");
+
+// FIXME
 // Test connection and get db handle
 async function connect() {
   try {
@@ -33,4 +41,6 @@ async function connect() {
   //   await client.close();
   // }
 }
-module.exports = {db};
+// FIXME
+
+export default db;

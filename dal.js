@@ -1,6 +1,7 @@
 import db from './dal_connect.js';
+
 console.log("We are running Data Abstraction Layer.")
-console.log(db)
+// console.log(db)
 
 // Create user account
 async function db_user_create(name, email, password){
@@ -27,8 +28,8 @@ async function all_old(){
 }
 
 async function db_user_all(){
-  await client.connect();
-  db = client.db('myproject');
+  //await client.connect();
+  //db = client.db('myproject');
   var collection = db.collection('users');
   try {
     res = collection.find({}).toArray();

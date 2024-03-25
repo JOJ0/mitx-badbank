@@ -27,12 +27,16 @@ app.get('/account/create/:name/:email/:password', (req, res) => {
 
 
 // List all accounts route
-app.get('/account/all',(req, res) => {
-  db_user_all()
-    .then((documents) => {
-      console.log('/account/all endpoint returning data.');
-      res.send(documents).status(200);
-    })
+app.get('/account/all', async (req, res) => {
+  try {
+    let result = await db_user_all();
+    console.log('/account/all endpoint is returning data...');
+    res.send(result).status(200);
+  }
+  catch (err) {
+    console.error(`Error in /account/all endpoint: ${err}`);
+    return(err);
+  }
 })
 
 var port = 3000;

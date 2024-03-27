@@ -6,7 +6,15 @@ function CreateAccount(){
     email: '',
     password: '',
   });
-  const ctx = React.useContext(UserContext);
+  // fetch api
+
+  async function createViaApi(url) {
+    let response = await fetch(url);
+    let data = await response.json();
+    console.log("CreateAccount component createViaApi got back:");
+    console.log(data);
+    return data;
+  }
 
   function validate(field, label) {
     if (!field) {
@@ -26,12 +34,17 @@ function CreateAccount(){
     if (!validate(formFields.password, 'password')) return;
     // If we made it to here, no errors noted.
     setStatus('');
-    ctx.users.push({
-      name: formFields.name,
-      email: formFields.email,
-      password: formFields.password,
-      balance:100
-    })
+    const url = `/account/create/${formFields.name}/${formFields.email}/${formFields.password}`;
+    console.log("In handleCreate url is:" + url);
+    // FIXME endpoint does't handle yet: balance:100
+    try {
+      let created = createViaApi(url);
+      console.log("create function returned:", created);
+    }
+    catch (error) {
+      console.error("create function error:", error);
+      setStatus('Error: ' + error)
+    }
     setShow(false);
   }
 

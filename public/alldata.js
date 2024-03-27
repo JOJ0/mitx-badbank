@@ -1,9 +1,20 @@
 function AllData() {
-  const ctx = React.useContext(UserContext);
-  const Table = ReactBootstrap.Table;
+  const [users, setUsers] = React.useState([]);
+  React.useEffect(() => {
+    // Fetch all accounts from DB via API endpoint /account/all
+    fetch('/account/all')
+      .then(response => response.json())
+      .then(data => {
+        console.log("AllData component useEffect hook received:");
+        console.log(data);
+        setUsers(data);
+      })
 
+  }, []);
+
+  const Table = ReactBootstrap.Table;
   const TableBody = () => {
-    const rows = ctx.users.map((row, index) => {
+    const rows = users.map((row, index) => {
       return (
         <tr key={index}>
           <th scope="row">{index + 1}</th>

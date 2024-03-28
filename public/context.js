@@ -23,6 +23,7 @@ async function apiGetRequest(url) {
     console.log("apiGetRequest returns jsonData:" + JSON.stringify(jsonData));
     return jsonData;
   }
+  console.log("apiGetRequest returns empty object.");
   return {};
 }
 

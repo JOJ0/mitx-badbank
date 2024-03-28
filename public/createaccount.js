@@ -8,12 +8,27 @@ function CreateAccount(){
   });
   // fetch api
 
-  async function createViaApi(url) {
-    let response = await fetch(url);
-    let data = await response.json();
-    console.log("CreateAccount component createViaApi got back:");
-    console.log(data);
-    return data;
+  async function apiGetRequest(url) {
+    let jsonData;
+    console.log("apiGetRequest accessing url:", url);
+
+    try {
+      let response = await fetch(url, {mode: 'no-cors'});
+      jsonData = await response.json();
+    }
+    catch (error) {
+      if (error instanceof SyntaxError) {
+        console.log('In apiGetRequest, SyntaxError:', error);  // Eg Unexpected token in JSON
+      } else {
+        console.log('In apiGetRequest, Error:', error);
+      }
+    }
+
+    if (jsonData) {
+      console.log("apiGetRequest returns jsonData:" + JSON.stringify(jsonData));
+      return jsonData;
+    }
+    return {};
   }
 
   function validate(field, label) {
@@ -37,14 +52,9 @@ function CreateAccount(){
     const url = `/account/create/${formFields.name}/${formFields.email}/${formFields.password}`;
     console.log("In handleCreate url is:" + url);
     // FIXME endpoint does't handle yet: balance:100
-    try {
-      let created = createViaApi(url);
-      console.log("create function returned:", created);
-    }
-    catch (error) {
-      console.error("create function error:", error);
-      setStatus('Error: ' + error)
-    }
+    let created = apiGetRequest(url);
+    console.log("Created is:", created);
+    // setStatus('Error: ' + error)
     setShow(false);
   }
 

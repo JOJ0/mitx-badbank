@@ -1,10 +1,43 @@
 import express from 'express';
 import cors from 'cors';
-import { db_user_create, db_user_all } from './dal.js';
+import { db_user_create, db_user_all, db_user_update_balance } from './dal.js';
 
 var app = express();
 app.use(express.static('public'));
 app.use(cors());
+
+
+// Update user's balance route
+app.get('/account/update_balance/:email/:amount', async (req, res) => {
+  try {
+    let updatedUser = await db_user_update_balance(req.params.email, req.params.amount)
+    let msg;
+    if (updatedUser == null) {
+      msg = {
+        "msgType": "error",
+        "msg": "Can't update balance (user not found).",
+        "data": updatedUser,
+      }
+    }
+    else {
+      msg = {
+        "msgType": "success",
+        "msg": "Sucessfully updated user's balance (increase).",
+        "data": updatedUser,
+      }
+    }
+    console.log(msg);
+    res.send(msg).status(200);
+  }
+  catch (err) {
+    let msg = {
+      "msgType": "error",
+      "msg": `Error in /account/update_balance endpoint: ${err}`,
+    }
+    console.error(msg);
+    res.send(msg).status(500);
+  }
+})
 
 
 // Create user account route

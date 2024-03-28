@@ -3,6 +3,29 @@ import db from './dal_connect.js';
 console.log("We are running Data Abstraction Layer.")
 // console.log(db)
 
+
+// Update user's balance
+async function db_user_update_balance(email, amount) {
+  try {
+    let res = await db.collection('users').findOneAndUpdate(
+      { email: email},
+      { $inc: { balance: parseInt(amount)}},
+      { returnNewDocument: true },
+    )
+    if (res == null) {
+      console.error(`Not found in db_user_update_balance():${res}`)
+    }
+    else {
+      console.log(`Success in db_user_update_balance(): ${res}`)
+    }
+    return res;
+  }
+  catch (err) {
+    console.error(`Error in db_user_update_balance(): ${err}`);
+    return(err);
+  }
+}
+
 // Create user account
 async function db_user_create(name, email, password){
   try {
@@ -29,4 +52,4 @@ async function db_user_all(){
   }
 }
 
-export { db_user_create, db_user_all };
+export { db_user_create, db_user_all, db_user_update_balance };

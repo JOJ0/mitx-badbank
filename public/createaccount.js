@@ -28,7 +28,6 @@ function CreateAccount(){
     setStatus('');
     const url = `/account/create/${formFields.name}/${formFields.email}/${formFields.password}`;
     console.log("In handleCreate url is:" + url);
-    // FIXME endpoint does't handle yet: balance:100
     let created = apiGetRequest(url);
     console.log("Created is:", created);
     // setStatus('Error: ' + error)

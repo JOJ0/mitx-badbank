@@ -3,6 +3,29 @@ const Route = ReactRouterDOM.Route;
 const HashRouter = ReactRouterDOM.HashRouter;
 const Link = ReactRouterDOM.Link;
 
+async function apiGetRequest(url) {
+  let jsonData;
+  console.log("apiGetRequest accessing url:", url);
+
+  try {
+    let response = await fetch(url, {mode: 'no-cors'});
+    jsonData = await response.json();
+  }
+  catch (error) {
+    if (error instanceof SyntaxError) {
+      console.log('In apiGetRequest, SyntaxError:', error);  // Eg Unexpected token in JSON
+    } else {
+      console.log('In apiGetRequest, Error:', error);
+    }
+  }
+
+  if (jsonData) {
+    console.log("apiGetRequest returns jsonData:" + JSON.stringify(jsonData));
+    return jsonData;
+  }
+  return {};
+}
+
 function styleSubmitButton(depositValue) {
   let classes = "btn btn-light";
   if (depositValue === '') {  // Catch empty AND string (triple equal sign) - we don't want to

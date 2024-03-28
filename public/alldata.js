@@ -7,7 +7,13 @@ function AllData() {
       .then(data => {
         console.log("AllData component useEffect hook received:");
         console.log(data);
-        setUsers(data);
+        if (data.msgType == 'success') {
+          console.log('Received success.');
+          setUsers(data.data);
+        }
+        else {
+          console.error('Received error.');
+        }
       })
 
   }, []);

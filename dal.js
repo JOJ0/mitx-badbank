@@ -20,7 +20,7 @@ async function db_user_create(name, email, password){
 async function db_user_all(){
   try {
     let res = await db.collection('users').find({}).toArray();
-    console.log(`db_user_all() returning data ${res}`);
+    console.log(`db_user_all() successfully returning users array.`);
     return(res);
   }
   catch (err) {

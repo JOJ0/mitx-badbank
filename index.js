@@ -39,6 +39,7 @@ app.get('/account/all', async (req, res) => {
       "msg": "Returning all users.",
       "data": result,
     }
+    console.log(msg);
     res.send(msg).status(200);
   }
   catch (err) {

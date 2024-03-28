@@ -11,12 +11,19 @@ app.use(cors());
 app.get('/account/create/:name/:email/:password', async (req, res) => {
   try {
     let newUser = await db_user_create(req.params.name, req.params.email, req.params.password)
-    let msg = `/account/create endpoint created new user: ${newUser}`
+    let msg = {
+      "messageType": "success",
+      "msg": "Sucessfully created user.",
+      "data": {newUser},
+    }
     console.log(msg);
     res.send(msg).status(200);
   }
   catch (err) {
-    let msg = `Error in /account/create endpoint: ${err}`
+    let msg = {
+      "msgType": "error",
+      "msg": `Error in /account/create endpoint: ${err}`,
+    }
     console.error(msg);
     res.send(msg).status(500);
   }
@@ -27,12 +34,20 @@ app.get('/account/create/:name/:email/:password', async (req, res) => {
 app.get('/account/all', async (req, res) => {
   try {
     let result = await db_user_all();
-    console.log('/account/all endpoint is returning data...');
-    res.send(result).status(200);
+    let msg = {
+      "messageType": "success",
+      "msg": "Returning all users.",
+      "data": {result},
+    }
+    res.send(msg).status(200);
   }
   catch (err) {
-    console.error(`Error in /account/all endpoint: ${err}`);
-    return(err);
+    let msg = {
+      "msgType": "error",
+      "msg": `Error in /account/all endpoint: ${err}`
+    }
+    console.error(msg);
+    res.send(msg).status(500);
   }
 })
 

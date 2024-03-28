@@ -12,9 +12,9 @@ app.get('/account/create/:name/:email/:password', async (req, res) => {
   try {
     let newUser = await db_user_create(req.params.name, req.params.email, req.params.password)
     let msg = {
-      "messageType": "success",
+      "msgType": "success",
       "msg": "Sucessfully created user.",
-      "data": {newUser},
+      "data": newUser,
     }
     console.log(msg);
     res.send(msg).status(200);
@@ -35,9 +35,9 @@ app.get('/account/all', async (req, res) => {
   try {
     let result = await db_user_all();
     let msg = {
-      "messageType": "success",
+      "msgType": "success",
       "msg": "Returning all users.",
-      "data": {result},
+      "data": result,
     }
     res.send(msg).status(200);
   }

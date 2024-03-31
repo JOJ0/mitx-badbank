@@ -5,14 +5,19 @@ function Deposit() {
   const [status, setStatus]     = React.useState('');
   const [statusType, setStatusType]     = React.useState('error');  // 'success' styles Card status green instead of red
 
-  function handleDeposit() {
+  async function handleDeposit() {
     console.log("handleDeposit received:", deposit);
     if (!validate(depositValue, 'deposit')) return;
     // If we made it to here, no errors noted.
-    ctx.users[0].balance += parseInt(depositValue);
+
+    const url = `/account/update_balance/${ctx.users[0].email}/${parseInt(depositValue)}`;
+    console.log("In handledeposit url is:" + url);
+    let balanceUpdated = await apiGetRequest(url);
+    console.log("balanceUpdated is:", balanceUpdated);
+
     setStatus("Thanks for your deposit. Consider your money terminated!");
     setStatusType('success')
-    setBalance(ctx.users[0].balance);
+    setBalance(balanceUpdated.data.balance);
   }
 
   function validate(value, label) {
@@ -33,7 +38,6 @@ function Deposit() {
     }
     else {
       setStatus('');
-      setBalance(ctx.users[0].balance);
     }
 
   if (err) {

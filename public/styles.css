@@ -109,4 +109,8 @@ hr {
   font-size: 0.6em;
   background-color: lightgreen;
 }
+
+.card-note {
+  font-size: 0.7em;
+}
 /* Card Layout END */

@@ -1,3 +1,6 @@
+const NavLink = ReactRouterDOM.NavLink;
+const useNavigate = ReactRouterDOM.useNavigate;
+
 function CreateAccount(){
   const [show, setShow]         = React.useState(true);
   const [status, setStatus]     = React.useState('');
@@ -6,7 +9,6 @@ function CreateAccount(){
     email: '',
     password: '',
   });
-  // fetch api
 
   function validate(field, label) {
     if (!field) {
@@ -68,7 +70,7 @@ function CreateAccount(){
       status={status}
       body={show ? (
         <>
-        <form>
+        <form className="">
           Name<br/>
           <input type="input" className="form-control" id="name" placeholder="Enter name" value={formFields.name} onChange={handleChange} /><br/>
           Email address<br/>
@@ -78,13 +80,23 @@ function CreateAccount(){
 
           <button type="submit" className={styleSubmitButton()} onClick={handleCreate}>Create account</button>
         </form>
+        <div className="">
+          <p className="mt-2 card-note">
+            Already have an account?{' '}
+            <NavLink to="/login" >
+                Sign in
+            </NavLink>
+          </p>
+        </div>
         </>
       ):(
         <>
         <form>
-          <h5>Success</h5>
-          <button type="submit" className="btn btn-light" onClick={clearForm}>Add another account</button>
-          </form>
+          <h5>Account created!</h5>
+          <NavLink to="/login" >
+              Login and waste your money?
+          </NavLink>
+        </form>
         </>
       )}
     / >

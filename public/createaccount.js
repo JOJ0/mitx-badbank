@@ -28,9 +28,11 @@ function CreateAccount(){
     setStatus('');
     const url = `/account/create/${formFields.name}/${formFields.email}/${formFields.password}`;
     console.log("In handleCreate url is:" + url);
+    // Create new user in App DB
     let created = apiGetRequest(url);
     console.log("Created is:", created);
-    // setStatus('Error: ' + error)
+    // Create new user in Firebase
+    // FIXME
     setShow(false);
   }
 

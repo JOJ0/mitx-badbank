@@ -22,5 +22,5 @@ console.log("Initialized Firebase app:", app)
 // Initialize Firebase Authentication and get a reference to the service
 export const auth = getAuth(app);
 console.log("Initialized Firebase auth:", auth)
-export const createFirebaseUser = createUserWithEmailAndPassword;
+// export const createFirebaseUser = createUserWithEmailAndPassword;
 export default app;

@@ -1,10 +1,10 @@
 const NavLink = ReactRouterDOM.NavLink;
 const Navigate = ReactRouterDOM.useNavigate;
-//import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
+import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.9.1/firebase-auth.js";
 // import { createUserWithEmailAndPassword } from "firebase/auth";
 // require ("firebase/auth");
 // import firebaseauth from 'firebase/auth';
-import { createUserWithEmailAndPassword } from "./firebase_auth";
+//import { createUserWithEmailAndPassword } from "./firebase_auth";
 
 function CreateAccount(){
   const [show, setShow]         = React.useState(true);

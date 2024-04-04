@@ -1,5 +1,10 @@
 const NavLink = ReactRouterDOM.NavLink;
-const useNavigate = ReactRouterDOM.useNavigate;
+const Navigate = ReactRouterDOM.useNavigate;
+//import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
+// import { createUserWithEmailAndPassword } from "firebase/auth";
+// require ("firebase/auth");
+// import firebaseauth from 'firebase/auth';
+import { createUserWithEmailAndPassword } from "./firebase_auth";
 
 function CreateAccount(){
   const [show, setShow]         = React.useState(true);
@@ -21,7 +26,7 @@ function CreateAccount(){
     return true;
   }
 
-  function handleCreate() {
+  async function handleCreate() {
     console.log("handleCreate received:", name, email, password);
     if (!validate(formFields.name, 'name')) return;
     if (!validate(formFields.email, 'email')) return;
@@ -30,11 +35,26 @@ function CreateAccount(){
     setStatus('');
     const url = `/account/create/${formFields.name}/${formFields.email}/${formFields.password}`;
     console.log("In handleCreate url is:" + url);
+
     // Create new user in App DB
     let created = apiGetRequest(url);
     console.log("Created is:", created);
     // Create new user in Firebase
-    // FIXME
+    createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            // Signed in
+            const user = userCredential.user;
+            console.log("user is", user);
+            Navigate("/login")
+            // ...
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log("Error is", errorCode, errorMessage);
+            // ..
+        });
+
     setShow(false);
   }
 

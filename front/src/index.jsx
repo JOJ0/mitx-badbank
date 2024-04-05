@@ -11,6 +11,13 @@ import Withdraw from './withdraw.jsx'
 import Deposit from './deposit.jsx'
 import AllData from './alldata.jsx'
 
+// Import bootstrap SCSS (which only includes bootstrap from install-dir)
+import './bootstrap.scss';
+// Import all of Bootstrap's JS
+import * as bootstrap from 'bootstrap';
+// Import our actual CSS
+import './styles.css';
+
 
 function Spa() {
 

@@ -1,9 +1,10 @@
-const UserContext = React.createContext(null);
-const Route = ReactRouterDOM.Route;
-const HashRouter = ReactRouterDOM.HashRouter;
-const Link = ReactRouterDOM.Link;
+import React from 'react'
+export const UserContext = React.createContext(null);
+// const Route = ReactRouterDOM.Route;
+// const HashRouter = ReactRouterDOM.HashRouter;
+// const Link = ReactRouterDOM.Link;
 
-async function apiGetRequest(url) {
+export async function apiGetRequest(url) {
   let jsonData;
   console.log("apiGetRequest accessing url:", url);
 
@@ -27,7 +28,7 @@ async function apiGetRequest(url) {
   return {};
 }
 
-function styleSubmitButton(depositValue) {
+export function styleSubmitButton(depositValue) {
   let classes = "btn btn-light";
   if (depositValue === '') {  // Catch empty AND string (triple equal sign) - we don't want to
                               // prevent inputting 0, we have another check for that in validate function)
@@ -37,13 +38,13 @@ function styleSubmitButton(depositValue) {
   return classes
 }
 
-function getBalance(balance) {
+export function getBalance(balance) {
   const ctx = React.useContext(UserContext);
   if (balance) return balance;
   return ctx.users[0].balance;
 }
 
-function Card(props) {
+export function Card(props) {
   function classes() {
     const bg = props.bgcolor ? 'bg-' + props.bgcolor : ' ';
     const text = props.txtcolor ? 'text-' + props.txtcolor : 'text-white';

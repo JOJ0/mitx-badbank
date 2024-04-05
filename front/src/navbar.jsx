@@ -1,10 +1,11 @@
-const NavLink = ReactRouterDOM.NavLink;
+import { NavLink } from 'react-router-dom';
+import { useState } from 'react';
 
 function NavBar() {
-  const [isHoveringCreate, setIsHoveringCreate] = React.useState(false);
-  const [isHoveringDeposit, setIsHoveringDeposit] = React.useState(false);
-  const [isHoveringWithdraw, setIsHoveringWithdraw] = React.useState(false);
-  const [isHoveringData, setIsHoveringData] = React.useState(false);
+  const [isHoveringCreate, setIsHoveringCreate] = useState(false);
+  const [isHoveringDeposit, setIsHoveringDeposit] = useState(false);
+  const [isHoveringWithdraw, setIsHoveringWithdraw] = useState(false);
+  const [isHoveringData, setIsHoveringData] = useState(false);
 
   const handleMouseOver = (event, navItem) => {
     console.log("handleMouseOver received:", navItem);
@@ -83,3 +84,5 @@ function NavBar() {
     </nav>
   );
 }
+
+export default NavBar;

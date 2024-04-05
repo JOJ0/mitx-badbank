@@ -1,5 +1,4 @@
-const NavLink = ReactRouterDOM.NavLink;
-const useNavigate = ReactRouterDOM.useNavigate;
+import { NavLink, useNavigate } from 'react-router-dom'
 
 function CreateAccount(){
   const [show, setShow]         = React.useState(true);
@@ -102,3 +101,5 @@ function CreateAccount(){
     / >
   );
 }
+
+export default CreateAccount;

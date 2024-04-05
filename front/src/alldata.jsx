@@ -61,3 +61,5 @@ function AllData() {
     />
   );
 }
+
+export default AllData;

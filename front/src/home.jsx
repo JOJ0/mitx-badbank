@@ -1,3 +1,5 @@
+import { Card } from './common.jsx'
+
 function Home() {
 
   return (

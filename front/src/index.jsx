@@ -1,8 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { HashRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
-// import App from './App.jsx'
+import App from './App.jsx'
 import NavBar from './navbar.jsx';
 import { UserContext } from './common.jsx';
 import Home from './home.jsx'
@@ -22,25 +22,28 @@ import './styles.css';
 function Spa() {
 
   return (
-    <HashRouter>
+      <>
       <div>
-        <NavBar />
         <hr />
         <UserContext.Provider value={
           {users: [
             {name:"Abel",email:"abel@mit.edu",password:"secret",balance:100}
           ]}
         }>
-        <Routes>
-          <Route path="/" exact component={Home} />
-          <Route path="/createaccount/" exact component={CreateAccount} />
-          <Route path="/deposit/" exact component={Deposit} />
-          <Route path="/withdraw/" exact component={Withdraw} />
-          <Route path="/alldata/" exact component={AllData} />
-        </Routes>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<App />}>
+              <Route index element={<Home />}/>
+              <Route path="/createaccount/" element={<CreateAccount />} />
+              <Route path="/deposit/" element={<Deposit />} />
+              <Route path="/withdraw/" element={<Withdraw />} />
+              <Route path="/alldata/" element={<AllData />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
         </UserContext.Provider>
       </div>
-    </HashRouter>
+      </>
   );
 }
 

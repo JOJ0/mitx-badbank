@@ -1,10 +1,12 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.1/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.9.1/firebase-auth.js";
+// import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.1/firebase-app.js";
+// import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.9.1/firebase-auth.js";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 // Your web app's Firebase configuration
+
+import firebase from 'firebase/app';
 
 const firebaseConfig = {
     apiKey: "AIzaSyDlcCzk9JVa-C5u3t_Wo9YQygPcScNlpkY",
@@ -16,11 +18,11 @@ const firebaseConfig = {
 };
  
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+const app = firebase.initializeApp(firebaseConfig);
 console.log("Initialized Firebase app:", app)
 
 // Initialize Firebase Authentication and get a reference to the service
 export const auth = getAuth(app);
 console.log("Initialized Firebase auth:", auth)
 // export const createFirebaseUser = createUserWithEmailAndPassword;
-export default app;
+//export default app;

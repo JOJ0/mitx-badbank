@@ -1,10 +1,12 @@
 const NavLink = ReactRouterDOM.NavLink;
 const Navigate = ReactRouterDOM.useNavigate;
-import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.9.1/firebase-auth.js";
+// import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.9.1/firebase-auth.js";
 // import { createUserWithEmailAndPassword } from "firebase/auth";
 // require ("firebase/auth");
 // import firebaseauth from 'firebase/auth';
 //import { createUserWithEmailAndPassword } from "./firebase_auth";
+// firebase = require("firebase");
+// import 'firebase/compat/auth';
 
 function CreateAccount(){
   const [show, setShow]         = React.useState(true);
@@ -40,6 +42,8 @@ function CreateAccount(){
     let created = apiGetRequest(url);
     console.log("Created is:", created);
     // Create new user in Firebase
+    console.log("This is createUserWithEmailAndPassword:", createUserWithEmailAndPassword)
+
     createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             // Signed in

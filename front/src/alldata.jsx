@@ -16,9 +16,10 @@ function AllData() {
           setUsers(data.data);
         }
         else {
-          console.error('Received error.');
+          console.error('Received API error.');
         }
       })
+      .catch(error => console.log('Catched error while fetching from API', error))
 
   }, []);
 

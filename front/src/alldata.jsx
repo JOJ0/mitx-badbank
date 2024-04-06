@@ -1,6 +1,10 @@
+import { useState, useEffect } from 'react';
+import { Table } from 'react-bootstrap';
+import { Card } from './common.jsx'
+
 function AllData() {
-  const [users, setUsers] = React.useState([]);
-  React.useEffect(() => {
+  const [users, setUsers] = useState([]);
+  useEffect(() => {
     // Fetch all accounts from DB via API endpoint /account/all
     fetch('/account/all')
       .then(response => response.json())
@@ -18,7 +22,6 @@ function AllData() {
 
   }, []);
 
-  const Table = ReactBootstrap.Table;
   const TableBody = () => {
     const rows = users.map((row, index) => {
       return (

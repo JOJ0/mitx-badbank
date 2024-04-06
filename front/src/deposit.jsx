@@ -1,9 +1,13 @@
+import { useState, useContext } from 'react';
+import { Card, apiGetRequest } from './common.jsx'
+import { UserContext, getBalance, styleSubmitButton } from './common.jsx'
+
 function Deposit() {
-  const ctx = React.useContext(UserContext);
-  const [depositValue, setDepositValue] = React.useState('');
-  const [balance, setBalance]     = React.useState(0);  // We want a re-render when this state changes
-  const [status, setStatus]     = React.useState('');
-  const [statusType, setStatusType]     = React.useState('error');  // 'success' styles Card status green instead of red
+  const ctx = useContext(UserContext);
+  const [depositValue, setDepositValue] = useState('');
+  const [balance, setBalance] = useState(0);  // We want a re-render when this state changes
+  const [status, setStatus] = useState('');
+  const [statusType, setStatusType] = useState('error');  // 'success' styles Card status green instead of red
 
   async function handleDeposit() {
     console.log("handleDeposit received:", deposit);

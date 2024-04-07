@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node --prefix back index.js",
     "install": "cd front && npm install",
-    "dev": "concurrently 'nodemon back/index.js' 'npm --prefix ./front run dev'",
+    "dev": "concurrently -n Bck,Frn 'nodemon back/index.js' 'npm --prefix ./front run dev'",
     "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "author": "J0J0 Todos",

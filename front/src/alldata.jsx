@@ -1,26 +1,18 @@
 import { useState, useEffect } from 'react';
 import { Table } from 'react-bootstrap';
-import { Card } from './common.jsx'
+import { Card, apiGetRequest } from './common.jsx'
 
 function AllData() {
   const [users, setUsers] = useState([]);
   useEffect(() => {
-    // Fetch all accounts from DB via API endpoint /account/all
-    fetch('/account/all')
-      .then(response => response.json())
-      .then(data => {
-        console.log("AllData component useEffect hook received:");
-        console.log(data);
-        if (data.msgType == 'success') {
-          console.log('Received success.');
-          setUsers(data.data);
-        }
-        else {
-          console.error('Received API error.');
-        }
-      })
-      .catch(error => console.log('Catched error while fetching from API', error))
-
+    // Fetch all accounts via API endpoint /api/account/all and set state.
+    let apiResult;
+    async function fetchData() {
+      apiResult = await apiGetRequest("/api/account/all");
+      console.log("In AllData useEffect inside fetchData got:", apiResult);
+      setUsers(apiResult.data);
+    }
+    fetchData();
   }, []);
 
   const TableBody = () => {

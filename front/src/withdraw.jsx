@@ -18,14 +18,19 @@ function Withdraw() {
     fetchData();
   }, []);
 
-  function handleWithdraw() {
+  async function handleWithdraw() {
     console.log("handleWithdraw received:", withdraw);
     if (!validate(withdrawValue, 'withdraw')) return;
     // If we made it through here, no errors noted.
-    ctx.users[0].balance = ctx.users[0].balance - parseInt(withdrawValue);
+
+    const url = `/api/account/update_balance/${ctx.users[0].email}/${parseInt(-withdrawValue)}`;
+    console.log("In handleWithdraw url is:" + url);
+    let balanceUpdated = await apiGetRequest(url);
+    console.log("balanceUpdated is:", balanceUpdated);
+
     setStatus("Thanks for your withdrawal. Remember? Your money's terminated already!");
     setStatusType('success')
-    setBalance(ctx.users[0].balance);
+    setBalance(balanceUpdated.data.balance);
   }
 
   function validate(value, label) {

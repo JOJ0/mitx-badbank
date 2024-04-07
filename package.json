@@ -1,0 +1,23 @@
+{
+  "name": "mitx-badbank-main",
+  "version": "1.0.0",
+  "description": "The whole app, manages backend and frontend",
+  "main": "back/index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node --prefix back index.js",
+    "install": "cd front && npm install",
+    "dev": "concurrently 'nodemon back/index.js' 'npm --prefix ./front run dev'"
+  },
+  "author": "J0J0 Todos",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "mongodb": "^6.5.0"
+  }
+}

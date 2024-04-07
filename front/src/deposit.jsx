@@ -23,7 +23,7 @@ function Deposit() {
     if (!validate(depositValue, 'deposit')) return;
     // If we made it to here, no errors noted.
 
-    const url = `/account/update_balance/${ctx.users[0].email}/${parseInt(depositValue)}`;
+    const url = `/api/account/update_balance/${ctx.users[0].email}/${parseInt(depositValue)}`;
     console.log("In handledeposit url is:" + url);
     let balanceUpdated = await apiGetRequest(url);
     console.log("balanceUpdated is:", balanceUpdated);

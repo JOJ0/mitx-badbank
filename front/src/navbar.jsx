@@ -25,6 +25,7 @@ function NavBar() {
 
 
   return (
+    <>
     <nav className="navbar navbar-expand-sm navbar-light bg-light">
       <div className="container-fluid">
         <NavLink className="navbar-brand" to="/">TermBank</NavLink>
@@ -82,6 +83,8 @@ function NavBar() {
       </div>
 
     </nav>
+    <hr />
+    </>
   );
 }
 

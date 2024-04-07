@@ -1,13 +1,22 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { Card, apiGetRequest } from './common.jsx'
 import { UserContext, getBalance, styleSubmitButton } from './common.jsx'
 
 function Withdraw() {
   const ctx = useContext(UserContext);
   const [withdrawValue, setWithdrawValue] = useState('');
-  const [balance, setBalance]     = useState(0);  // We want a re-render when this state changes
-  const [status, setStatus]     = useState('');
-  const [statusType, setStatusType]     = useState('error');  // 'success' styles Card status green instead of red
+  const [balance, setBalance] = useState(0);  // We want a re-render when this state changes
+  const [status, setStatus] = useState('');
+  const [statusType, setStatusType] = useState('error');  // 'success' styles Card status green instead of red
+
+  useEffect(() => {
+    async function fetchData() {
+      let apiResult = await getBalance(ctx.users[0].email);
+      console.log("This is apiResult:", apiResult)
+      setBalance(apiResult);
+    }
+    fetchData();
+  }, []);
 
   function handleWithdraw() {
     console.log("handleWithdraw received:", withdraw);
@@ -60,12 +69,11 @@ function Withdraw() {
     <Card
       header="Withdraw"
       title={`Hi ${ctx.users[0].name}, try to take money from us!`}
-      text={"(Assuming User 0 - as soon will be your money too)"}
+      text={`Current balance: ${balance}`}
       status={status}
       statusType={statusType}
       body={
         <>
-        <div className="card-title">Current balance: ${getBalance(balance)}</div>
         <form>
           How much to get?<br/>
           <input type="input" className="form-control" id="withdraw" placeholder="Enter Amount" value={withdrawValue}

@@ -22,7 +22,7 @@ app.get('/account/update_balance/:email/:amount', async (req, res) => {
     else {
       msg = {
         "msgType": "success",
-        "msg": "Sucessfully updated user's balance (increase).",
+        "msg": "Updated user's balance.",
         "data": updatedUser,
       }
     }
@@ -32,7 +32,7 @@ app.get('/account/update_balance/:email/:amount', async (req, res) => {
   catch (err) {
     let msg = {
       "msgType": "error",
-      "msg": `Error in /account/update_balance endpoint: ${err}`,
+      "msg": `Database error in /account/update_balance endpoint: ${err}`,
     }
     console.error(msg);
     res.send(msg).status(500);
@@ -46,7 +46,7 @@ app.get('/account/create/:name/:email/:password', async (req, res) => {
     let newUser = await db_user_create(req.params.name, req.params.email, req.params.password)
     let msg = {
       "msgType": "success",
-      "msg": "Sucessfully created user.",
+      "msg": "Created user.",
       "data": newUser,
     }
     console.log(msg);
@@ -55,7 +55,7 @@ app.get('/account/create/:name/:email/:password', async (req, res) => {
   catch (err) {
     let msg = {
       "msgType": "error",
-      "msg": `Error in /account/create endpoint: ${err}`,
+      "msg": `Database error in /account/create endpoint: ${err}`,
     }
     console.error(msg);
     res.send(msg).status(500);
@@ -78,7 +78,7 @@ app.get('/account/all', async (req, res) => {
   catch (err) {
     let msg = {
       "msgType": "error",
-      "msg": `Error in /account/all endpoint: ${err}`
+      "msg": `Database error in /account/all endpoint: ${err}`
     }
     console.error(msg);
     res.send(msg).status(500);

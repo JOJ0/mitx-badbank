@@ -7,8 +7,14 @@ console.log("We are running Data Abstraction Layer.")
 async function db_user(email){
   try {
     let res = await db.collection('users').findOne({email: email});
-    console.log(`db_user() successfully returning user.`);
-    return(res);
+    console.log(`db_user() successfully returning.`);
+    if (res == null) {
+      console.error(`Not found in db_user(): ${res}`)
+    }
+    else {
+      console.log(`Success in db_user(): ${res}`)
+    }
+    return res;
   }
   catch (err) {
     console.error(`Error in db_user(): ${err}`);

@@ -63,24 +63,26 @@ function NavBar() {
             >
               <NavLink className="nav-link" to="/alldata/">AllData</NavLink>
             </li>
+
+            <div className="nav-tooltip" name="nav-info">
+              <div className={isHoveringCreate ? "nav-tooltip-visible" : "nav-tooltip-hidden"}>
+                This page lets you create user accounts.
+              </div>
+              <div className={isHoveringDeposit ? "nav-tooltip-visible" : "nav-tooltip-hidden"}>
+                This page let's you throw money at us.
+              </div>
+              <div className={isHoveringWithdraw ? "nav-tooltip-visible" : "nav-tooltip-hidden"}>
+                This page lets you withdraw money.
+              </div>
+              <div className={isHoveringData ? "nav-tooltip-visible" : "nav-tooltip-hidden"}>
+                This page lists all users data.
+              </div>
+            </div>
+
           </ul>
         </div>
       </div>
 
-      <div className="container">
-        <div className={isHoveringCreate ? "nav-tooltip-visible" : "nav-tooltip-hidden"}>
-          This page lets you create user accounts.
-        </div>
-        <div className={isHoveringDeposit ? "nav-tooltip-visible" : "nav-tooltip-hidden"}>
-          This page let's you throw money at us.
-        </div>
-        <div className={isHoveringWithdraw ? "nav-tooltip-visible" : "nav-tooltip-hidden"}>
-          This page lets you withdraw money.
-        </div>
-        <div className={isHoveringData ? "nav-tooltip-visible" : "nav-tooltip-hidden"}>
-          This page lists all users data.
-        </div>
-      </div>
 
     </nav>
     <hr />

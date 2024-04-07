@@ -55,12 +55,12 @@ hr {
   border-bottom: 1px solid;
 }
 
-.nav-tooltip-hidden {
-  display: none;
-}
-
-.nav-tooltip-visible {
-  font-size: 0.5rem;
+.nav-tooltip {
+  font-size: 0.6rem;
+  line-height: 1rem;
+  position: relative;
+  top: 1rem;
+  left: 0.5rem;
   /*
   display: block;
   position: absolute;
@@ -72,7 +72,15 @@ hr {
   */
   /* background-color: rgba(0,0,0,0.5); /*dim the background*/
 }
+
+.nav-tooltip-hidden {
+  display: none;
+}
+
+.nav-tooltip-visible {
+}
 /* Navigation Layout END */
+
 
 /* Card Layout START */
 .card-body a {

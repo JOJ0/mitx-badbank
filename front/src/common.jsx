@@ -38,16 +38,13 @@ export function styleSubmitButton(depositValue) {
   return classes
 }
 
-export async function getBalance(balance) {
-  const ctx = React.useContext(UserContext);
-  // Simply return the current balance if it was passed
-  if (balance) return balance;
+export async function getBalance(email) {
   // Fetch via API
-  const url = `/account/details/${ctx.users[0].email}}`;
+  const url = `/api/account/details/${email}`;
   console.log("In getBalance url is:", url);
   let userFetched = await apiGetRequest(url);
   console.log("In getBalance received from API:", userFetched);
-  return userFetched.balance;
+  return userFetched.data.balance;
 }
 
 export function Card(props) {

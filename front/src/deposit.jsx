@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { Card, apiGetRequest } from './common.jsx'
 import { UserContext, getBalance, styleSubmitButton } from './common.jsx'
 
@@ -8,6 +8,15 @@ function Deposit() {
   const [balance, setBalance] = useState(0);  // We want a re-render when this state changes
   const [status, setStatus] = useState('');
   const [statusType, setStatusType] = useState('error');  // 'success' styles Card status green instead of red
+
+  useEffect(() => {
+    async function fetchData() {
+      let apiResult = await getBalance(ctx.users[0].email);
+      console.log("This is apiResult:", apiResult)
+      setBalance(apiResult);
+    }
+    fetchData();
+  }, []);
 
   async function handleDeposit() {
     console.log("handleDeposit received:", deposit);
@@ -58,7 +67,7 @@ function Deposit() {
     <Card
       header="Deposit"
       title={`Hi ${ctx.users[0].name}, please throw money at us!`}
-      text={`Current balance: ${getBalance(balance)}`}
+      text={`Current balance: ${balance}`}
       status={status}
       statusType={statusType}
       body={

@@ -45,6 +45,10 @@ hr {
   text-decoration: none;  /* disable our general link-hover style*/
 }
 
+.nav-link {
+  border: 1px solid transparent;
+}
+
 .nav-link:hover {
   text-decoration: none;  /* disable our general link-hover style*/
   border-bottom: 1px solid;

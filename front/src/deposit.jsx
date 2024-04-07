@@ -58,12 +58,11 @@ function Deposit() {
     <Card
       header="Deposit"
       title={`Hi ${ctx.users[0].name}, please throw money at us!`}
-      text={"(Assuming User 0 - as soon will be your money too)"}
+      text={`Current balance: ${getBalance(balance)}`}
       status={status}
       statusType={statusType}
       body={
         <>
-        <div className="card-title">Current balance: ${getBalance(balance)}</div>
         <form>
           How much to throw?<br/>
           <input type="input" className="form-control" id="deposit" placeholder="Enter Amount" value={depositValue}

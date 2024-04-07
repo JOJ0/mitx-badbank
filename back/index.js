@@ -1,11 +1,42 @@
 import express from 'express';
 import cors from 'cors';
-import { db_user_create, db_user_all, db_user_update_balance } from './dal.js';
+import { db_user_create, db_user_all, db_user_update_balance, db_user } from './dal.js';
 
 var app = express();
 app.use(express.static('public'));
 app.use(cors());
 
+// Fetch a single user's info route
+app.get('/account/details/:email', async (req, res) => {
+  try {
+    let fetchedUser = await db_user(req.params.email)
+    let msg;
+    if (fetchedUser == null) {
+      msg = {
+        "msgType": "error",
+        "msg": "Can't fetch user details (user not found).",
+        "data": fetchedUser,
+      }
+    }
+    else {
+      msg = {
+        "msgType": "success",
+        "msg": "Fetched details for user.",
+        "data": fetchedUser,
+      }
+    }
+    console.log(msg);
+    res.send(msg).status(200);
+  }
+  catch (err) {
+    let msg = {
+      "msgType": "error",
+      "msg": `Database error in /account/details endpoint: ${err}`,
+    }
+    console.error(msg);
+    res.send(msg).status(500);
+  }
+})
 
 // Update user's balance route
 app.get('/account/update_balance/:email/:amount', async (req, res) => {

@@ -11,6 +11,7 @@ import Withdraw from './withdraw.jsx'
 import Deposit from './deposit.jsx'
 import AllData from './alldata.jsx'
 import Login from './login.jsx'
+import Logout from './logout.jsx'
 
 // Import bootstrap SCSS (which only includes bootstrap from install-dir)
 import './bootstrap.scss';
@@ -36,6 +37,7 @@ function Spa() {
               <Route path="/withdraw/" element={<Withdraw />} />
               <Route path="/alldata/" element={<AllData />} />
               <Route path="/login/" element={<Login />} />
+              <Route path="/logout/" element={<Logout />} />
             </Route>
           </Routes>
         </BrowserRouter>

@@ -72,7 +72,7 @@ function NavBar() {
               onMouseOver={() => handleMouseOver(event, 'nav-logout')}
               onMouseOut={() => handleMouseOut(event, 'nav-logout')}
             >
-              <NavLink className="nav-link-email" to="/logout/">{ctx.email}</NavLink>
+              <NavLink className="nav-link" to="/logout/">Logout</NavLink>
             </li>
 
             <div className="nav-tooltip" name="nav-info">
@@ -89,7 +89,7 @@ function NavBar() {
                 This page lists all users data.
               </div>
               <div className={isHoveringLogout ? "nav-tooltip-visible" : "nav-tooltip-hidden"}>
-                Click on your email address to logout.
+                Click to logout.
               </div>
             </div>
 

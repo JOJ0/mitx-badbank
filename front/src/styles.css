@@ -49,8 +49,12 @@ hr {
   border: 1px solid transparent;
 }
 
-.nav-link-email {
+.nav-link-logout {
   font-size: 0.8rem;
+  line-height: 0.5rem;
+  position: relative;
+  top: 2rem;
+  left: 0.5rem;
 }
 
 .nav-link:hover {

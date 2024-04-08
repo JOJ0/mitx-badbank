@@ -26,6 +26,7 @@ const swaggerOptions = {
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
 app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec));
 
+
 /**
  * @swagger
  * /account/:email:
@@ -33,7 +34,7 @@ app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec));
  *     summary: Retrieve a single user.
  *     description: Retrieve details of a single user account.
 */
-app.get('/account/details/:email', async (req, res) => {
+app.get('/account/:email', async (req, res) => {
   try {
     let fetchedUser = await db_user(req.params.email)
     let msg;

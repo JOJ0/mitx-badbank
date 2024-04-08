@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from 'react';
-import { Card, apiGetRequest } from './common.jsx'
+import { Card, apiPutRequest } from './common.jsx'
 import { UserContext, getBalance, styleSubmitButton } from './common.jsx'
 
 function Deposit() {
@@ -19,14 +19,14 @@ function Deposit() {
   }, []);
 
   async function handleDeposit() {
-    console.log("handleDeposit received:", deposit);
     if (!validate(depositValue, 'deposit')) return;
     // If we made it to here, no errors noted.
 
-    const url = `/api/account/update_balance/${ctx.users[0].email}/${parseInt(depositValue)}`;
-    console.log("In handledeposit url is:" + url);
-    let balanceUpdated = await apiGetRequest(url);
-    console.log("balanceUpdated is:", balanceUpdated);
+    let balanceUpdated = await apiPutRequest(
+      `/api/account/update_balance/${ctx.users[0].email}`,
+      {amount: parseInt(depositValue)}
+    );
+    console.log("In handleDeposit apiPutRequest returned:", balanceUpdated);
 
     setStatus("Thanks for your deposit. Consider your money terminated!");
     setStatusType('success')

@@ -19,14 +19,14 @@ function Withdraw() {
   }, []);
 
   async function handleWithdraw() {
-    console.log("handleWithdraw received:", withdraw);
     if (!validate(withdrawValue, 'withdraw')) return;
     // If we made it through here, no errors noted.
 
-    const url = `/api/account/update_balance/${ctx.users[0].email}/${parseInt(-withdrawValue)}`;
-    console.log("In handleWithdraw url is:" + url);
-    let balanceUpdated = await apiGetRequest(url);
-    console.log("balanceUpdated is:", balanceUpdated);
+    let balanceUpdated = await apiPutRequest(
+      `/api/account/update_balance/${ctx.users[0].email}`,
+      {amount: parseInt(-depositValue)}
+    );
+    console.log("In handleWithdraw apiPutRequest returned:", balanceUpdated);
 
     setStatus("Thanks for your withdrawal. Remember? Your money's terminated already!");
     setStatusType('success')

@@ -66,6 +66,24 @@ app.get('/account/details/:email', async (req, res) => {
 
 // Update user's balance route
 app.put('/account/update_balance/:email', async (req, res) => {
+  if (! req.body.amount) {
+    let msg = {
+      "msgType": "error",
+      "msg": `Error in /account/update_balance endpoint. Amount missing or zero.`,
+    }
+    console.error(msg);
+    res.send(msg).status(500);
+    return
+  }
+  else if (! Number(req.body.amount)) {
+    let msg = {
+      "msgType": "error",
+      "msg": `Error in /account/update_balance endpoint. Amount is not a number.`,
+    }
+    console.error(msg);
+    res.send(msg).status(500);
+    return
+  }
   try {
     let updatedUser = await db_user_update_balance(req.params.email, req.body.amount)
     let msg;

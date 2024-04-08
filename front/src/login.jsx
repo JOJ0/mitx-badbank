@@ -40,32 +40,19 @@ function LoginForm(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  function handleLogin() {
-    console.log("handleLogin received:", email, password);
-    props.setStatus('');
-    // Create new user in App DB
-    let loggedIn = apiPostRequest('/api/account/login', {
+  async function handleLogin() {
+    let loggedIn = await apiPostRequest('/api/account/login', {
       email: email,
       password: password
     });
     console.log("In handleLogin apiPostRequest returned:", loggedIn);
-    // Create new user in Firebase
-    // FIXME
-    // setShow(false);
-
-    // fetch(`/account/login/${email}/${password}`)
-    //   .then((response) => response.text())
-    //   .then((text) => {
-    //     try {
-    //       const data = JSON.parse(text);
-    //       props.setStatus("");
-    //       props.setShow(false);
-    //       console.log("JSON:", data);
-    //     } catch (err) {
-    //       props.setStatus(text);
-    //       console.log("err:", text);
-    //     }
-    //   });
+    if (loggedIn.msgType === "error") {
+      props.setStatus("Access denied.");
+    }
+    else {
+      props.setStatus("");
+      props.setShow(false);
+    }
   }
 
   return (

@@ -49,6 +49,10 @@ hr {
   border: 1px solid transparent;
 }
 
+.nav-link-email {
+  font-size: 0.8rem;
+}
+
 .nav-link:hover {
   text-decoration: none;  /* disable our general link-hover style*/
   border-bottom: 1px solid;

@@ -1,11 +1,14 @@
 import { NavLink } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { UserContext } from './common.jsx'
 
 function NavBar() {
   const [isHoveringCreate, setIsHoveringCreate] = useState(false);
   const [isHoveringDeposit, setIsHoveringDeposit] = useState(false);
   const [isHoveringWithdraw, setIsHoveringWithdraw] = useState(false);
   const [isHoveringData, setIsHoveringData] = useState(false);
+  const [isHoveringLogout, setIsHoveringLogout] = useState(false);
+  const ctx = useContext(UserContext);
 
   const handleMouseOver = (event, navItem) => {
     console.log("handleMouseOver received:", navItem);
@@ -13,6 +16,7 @@ function NavBar() {
     if (navItem == "nav-deposit") setIsHoveringDeposit(true);
     if (navItem == "nav-withdraw") setIsHoveringWithdraw(true);
     if (navItem == "nav-data") setIsHoveringData(true);
+    if (navItem == "nav-logout") setIsHoveringLogout(true);
   };
 
   const handleMouseOut = (event, navItem) => {
@@ -21,6 +25,7 @@ function NavBar() {
     if (navItem == "nav-deposit") setIsHoveringDeposit(false);
     if (navItem == "nav-withdraw") setIsHoveringWithdraw(false);
     if (navItem == "nav-data") setIsHoveringData(false);
+    if (navItem == "nav-logout") setIsHoveringLogout(false);
   };
 
 
@@ -63,6 +68,12 @@ function NavBar() {
             >
               <NavLink className="nav-link" to="/alldata/">AllData</NavLink>
             </li>
+            <li className="nav-item" name="nav-logout"
+              onMouseOver={() => handleMouseOver(event, 'nav-logout')}
+              onMouseOut={() => handleMouseOut(event, 'nav-logout')}
+            >
+              <NavLink className="nav-link-email" to="/logout/">{ctx.email}</NavLink>
+            </li>
 
             <div className="nav-tooltip" name="nav-info">
               <div className={isHoveringCreate ? "nav-tooltip-visible" : "nav-tooltip-hidden"}>
@@ -76,6 +87,9 @@ function NavBar() {
               </div>
               <div className={isHoveringData ? "nav-tooltip-visible" : "nav-tooltip-hidden"}>
                 This page lists all users data.
+              </div>
+              <div className={isHoveringLogout ? "nav-tooltip-visible" : "nav-tooltip-hidden"}>
+                Click on your email address to logout.
               </div>
             </div>
 

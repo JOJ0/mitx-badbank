@@ -1,5 +1,7 @@
 import { useState, useContext, useEffect } from 'react';
 import { Card, apiPostRequest } from './common.jsx'
+import { UserContext } from './common.jsx'
+
 
 function Login() {
   const [show, setShow] = useState(true);
@@ -39,6 +41,7 @@ function LoginMsg(props) {
 function LoginForm(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const ctx = useContext(UserContext);
 
   async function handleLogin() {
     let loggedIn = await apiPostRequest('/api/account/login', {
@@ -52,6 +55,9 @@ function LoginForm(props) {
     else {
       props.setStatus("");
       props.setShow(false);
+      ctx.email = loggedIn.data.email;
+      ctx.loggedIn = true;
+      console.log("Weve set ctx to user data:", ctx);
     }
   }
 

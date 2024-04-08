@@ -11,7 +11,7 @@ function Deposit() {
 
   useEffect(() => {
     async function fetchData() {
-      let apiResult = await getBalance(ctx.users[0].email);
+      let apiResult = await getBalance(ctx.email);
       console.log("This is apiResult:", apiResult)
       setBalance(apiResult);
     }
@@ -23,7 +23,7 @@ function Deposit() {
     // If we made it to here, no errors noted.
 
     let balanceUpdated = await apiPutRequest(
-      `/api/account/update_balance/${ctx.users[0].email}`,
+      `/api/account/update_balance/${ctx.email}`,
       {amount: parseInt(depositValue)}
     );
     console.log("In handleDeposit apiPutRequest returned:", balanceUpdated);
@@ -66,7 +66,7 @@ function Deposit() {
   return (
     <Card
       header="Deposit"
-      title={`Hi ${ctx.users[0].name}, please throw money at us!`}
+      title={`Hi ${ctx.email}, please throw money at us!`}
       text={`Current balance: ${balance}`}
       status={status}
       statusType={statusType}

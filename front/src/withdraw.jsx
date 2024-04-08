@@ -11,7 +11,7 @@ function Withdraw() {
 
   useEffect(() => {
     async function fetchData() {
-      let apiResult = await getBalance(ctx.users[0].email);
+      let apiResult = await getBalance(ctx.email);
       console.log("This is apiResult:", apiResult)
       setBalance(apiResult);
     }
@@ -23,7 +23,7 @@ function Withdraw() {
     // If we made it through here, no errors noted.
 
     let balanceUpdated = await apiPutRequest(
-      `/api/account/update_balance/${ctx.users[0].email}`,
+      `/api/account/update_balance/${ctx.email}`,
       {amount: parseInt(-depositValue)}
     );
     console.log("In handleWithdraw apiPutRequest returned:", balanceUpdated);
@@ -73,7 +73,7 @@ function Withdraw() {
   return (
     <Card
       header="Withdraw"
-      title={`Hi ${ctx.users[0].name}, try to take money from us!`}
+      title={`Hi ${ctx.email}, try to take money from us!`}
       text={`Current balance: ${balance}`}
       status={status}
       statusType={statusType}

@@ -1,8 +1,6 @@
 import React from 'react'
 export const UserContext = React.createContext(null);
-// const Route = ReactRouterDOM.Route;
-// const HashRouter = ReactRouterDOM.HashRouter;
-// const Link = ReactRouterDOM.Link;
+
 
 export async function apiPutRequest(url, data) {
   let jsonData;
@@ -100,7 +98,7 @@ export function styleSubmitButton(depositValue) {
 
 export async function getBalance(email) {
   // Fetch via API
-  const url = `/api/account/details/${email}`;
+  const url = `/api/account/${email}`;
   console.log("In getBalance url is:", url);
   let userFetched = await apiGetRequest(url);
   console.log("In getBalance received from API:", userFetched);

@@ -25,7 +25,7 @@ function Spa() {
   return (
       <>
       <UserContext.Provider value={
-        {users: [{name:"Abel",email:"abel@mit.edu",password:"secret",balance:100}]}
+        {email:"",loggedIn:false}
       }>
         <BrowserRouter>
           <Routes>

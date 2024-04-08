@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom'
-import { Card, apiGetRequest } from './common.jsx'
+import { Card, apiPostRequest } from './common.jsx'
 import useCreateAccountForm from './createaccounthook.jsx'
 
 function CreateAccount(){
@@ -30,11 +30,13 @@ function CreateAccount(){
     if (!validate(formFields.password, 'password')) return;
     // If we made it to here, no errors noted.
     setStatus('');
-    const url = `/account/create/${formFields.name}/${formFields.email}/${formFields.password}`;
-    console.log("In handleCreate url is:" + url);
     // Create new user in App DB
-    let created = apiGetRequest(url);
-    console.log("Created is:", created);
+    let created = apiPostRequest('/api/account', {
+      name: formFields.name,
+      email: formFields.email,
+      password: formFields.password
+    });
+    console.log("In handleCreate apiPostRequest returned:", created);
     // Create new user in Firebase
     // FIXME
     setShow(false);

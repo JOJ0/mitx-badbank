@@ -4,6 +4,36 @@ export const UserContext = React.createContext(null);
 // const HashRouter = ReactRouterDOM.HashRouter;
 // const Link = ReactRouterDOM.Link;
 
+export async function apiPostRequest(url, data) {
+  let jsonData;
+  console.log("apiPostRequest accessing url:", url);
+
+  try {
+    let response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data)
+    });
+    jsonData = await response.json();
+  }
+  catch (error) {
+    if (error instanceof SyntaxError) {
+      console.log('In apiPostRequest, SyntaxError:', error);  // Eg Unexpected token in JSON
+    } else {
+      console.log('In apiPostRequest, Error:', error);
+    }
+  }
+
+  if (jsonData) {
+    console.log("apiPostRequest returns jsonData:" + JSON.stringify(jsonData));
+    return jsonData;
+  }
+  console.log("apiPostRequest returns empty object.");
+  return {};
+}
+
 export async function apiGetRequest(url) {
   let jsonData;
   console.log("apiGetRequest accessing url:", url);

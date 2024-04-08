@@ -3,11 +3,14 @@ import cors from 'cors';
 import { db_user_create, db_user_all, db_user_update_balance, db_user } from './dal.js';
 import swaggerJSDoc from "swagger-jsdoc";
 import swaggerUI from 'swagger-ui-express';
+import bodyParser from 'body-parser';
 
 // Initialize express API
 var app = express();
 app.use(express.static('public'));
 app.use(cors());
+// Support POST requests
+app.use(bodyParser.json())
 
 // Set up swagger API docs
 const swaggerOptions = {
@@ -96,6 +99,15 @@ app.put('/account/update_balance/:email', async (req, res) => {
 
 // Create user account route
 app.post('/account/', async (req, res) => {
+  if (! req.body.email || ! req.body.password) {
+    let msg = {
+      "msgType": "error",
+      "msg": `Error in /account/ endpoint while trying to create new user: Missing data.`,
+    }
+    console.error(msg);
+    res.send(msg).status(500);
+    return
+  }
   try {
     let newUser = await db_user_create(req.body.name, req.body.email, req.body.password)
     let msg = {

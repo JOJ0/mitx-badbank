@@ -62,9 +62,9 @@ app.get('/account/details/:email', async (req, res) => {
 })
 
 // Update user's balance route
-app.get('/account/update_balance/:email/:amount', async (req, res) => {
+app.put('/account/update_balance/:email', async (req, res) => {
   try {
-    let updatedUser = await db_user_update_balance(req.params.email, req.params.amount)
+    let updatedUser = await db_user_update_balance(req.params.email, req.body.amount)
     let msg;
     if (updatedUser == null) {
       msg = {
@@ -95,9 +95,9 @@ app.get('/account/update_balance/:email/:amount', async (req, res) => {
 
 
 // Create user account route
-app.get('/account/create/:name/:email/:password', async (req, res) => {
+app.post('/account/', async (req, res) => {
   try {
-    let newUser = await db_user_create(req.params.name, req.params.email, req.params.password)
+    let newUser = await db_user_create(req.body.name, req.body.email, req.body.password)
     let msg = {
       "msgType": "success",
       "msg": "Created user.",
@@ -109,7 +109,7 @@ app.get('/account/create/:name/:email/:password', async (req, res) => {
   catch (err) {
     let msg = {
       "msgType": "error",
-      "msg": `Database error in /account/create endpoint: ${err}`,
+      "msg": `Database error in /account/ endpoint while trying to create new user: ${err}`,
     }
     console.error(msg);
     res.send(msg).status(500);

@@ -8,7 +8,7 @@ function AllData() {
     // Fetch all accounts via API endpoint /api/account/all and set state.
     let apiResult;
     async function fetchData() {
-      apiResult = await apiGetRequest("/api/account/all");
+      apiResult = await apiGetRequest("/api/accounts");
       console.log("In AllData useEffect inside fetchData got:", apiResult);
       setUsers(apiResult.data);
     }
@@ -32,7 +32,7 @@ function AllData() {
 
   return (
     <Card
-      header="All Data"
+      header="All User accounts (FIXME this will never be shown to a single user)"
       title="Your personal termination overview."
       text={"Money loss guaranteed!"}
       body={

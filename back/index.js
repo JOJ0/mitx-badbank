@@ -163,13 +163,13 @@ app.post('/account/', async (req, res) => {
 
 /**
  * @swagger
- * /account/all:
+ * /accounts:
  *   get:
  *     summary: Retrieve a list of users.
  *     description: Retrieve a list of all existing users. No pagination is
  *                  implemented.
 */
-app.get('/account/all', async (req, res) => {
+app.get('/accounts', async (req, res) => {
   try {
     let result = await db_user_all();
     let msg = {
@@ -183,7 +183,7 @@ app.get('/account/all', async (req, res) => {
   catch (err) {
     let msg = {
       "msgType": "error",
-      "msg": `Database error in /account/all endpoint: ${err}`
+      "msg": `Database error in /accounts endpoint: ${err}`
     }
     console.error(msg);
     res.send(msg).status(500);

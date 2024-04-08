@@ -1,12 +1,35 @@
 import express from 'express';
 import cors from 'cors';
 import { db_user_create, db_user_all, db_user_update_balance, db_user } from './dal.js';
+import swaggerJSDoc from "swagger-jsdoc";
+import swaggerUI from 'swagger-ui-express';
 
+// Initialize express API
 var app = express();
 app.use(express.static('public'));
 app.use(cors());
 
-// Fetch a single user's info route
+// Set up swagger API docs
+const swaggerOptions = {
+    swaggerDefinition: {
+      openapi: '3.0.0',
+      info: {
+        title: 'Express API for the MITx MERN course capstone project "TermBank"',
+        version: '1.0.0',
+      },
+    },
+    apis: ['./back/index.js'],
+};
+const swaggerSpec = swaggerJSDoc(swaggerOptions);
+app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec));
+
+/**
+ * @swagger
+ * /account/details/:email:
+ *   get:
+ *     summary: Retrieve a single user.
+ *     description: Retrieve details of a single user account.
+*/
 app.get('/account/details/:email', async (req, res) => {
   try {
     let fetchedUser = await db_user(req.params.email)

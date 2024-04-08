@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import { db_user_create, db_user_all, db_user_update_balance, db_user } from './dal.js';
+import { db_user_create, db_user_all, db_user_update_balance, db_user, db_user_pass } from './dal.js';
 import swaggerJSDoc from "swagger-jsdoc";
 import swaggerUI from 'swagger-ui-express';
 import bodyParser from 'body-parser';
@@ -25,6 +25,57 @@ const swaggerOptions = {
 };
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
 app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec));
+
+
+/**
+ * @swagger
+ * /account/login:
+ *   post:
+ *     summary: Login to a user account.
+ *     description: Login to an already existing user account. Pass "email", and "password" in the request body.
+*/
+app.post('/account/login', async (req, res) => {
+  if (! req.body.email || ! req.body.password) {
+    let msg = {
+      "msgType": "error",
+      "msg": `Error in /account/login endpoint while trying to login: Missing data.`,
+    }
+    console.error(msg);
+    res.send(msg).status(500);
+    return
+  }
+  try {
+    let loggedInUser = await db_user_pass(req.body.email, req.body.password)
+    let msg;
+    if (loggedInUser == null) {
+      msg = {
+        "msgType": "error",
+        "msg": "User and password combination NOT existing. Deny login.",
+        "data": null,
+      }
+      console.log(msg);
+      res.send(msg).status(401);
+    }
+    else
+    {
+      msg = {
+        "msgType": "success",
+        "msg": "User and password combination existing. Allow login.",
+        "data": loggedInUser,
+      }
+      console.log(msg);
+      res.send(msg).status(200);
+    }
+  }
+  catch (err) {
+    let msg = {
+      "msgType": "error",
+      "msg": `Database error in /account/login endpoint while trying to request user: ${err}`,
+    }
+    console.error(msg);
+    res.send(msg).status(500);
+  }
+})
 
 
 /**

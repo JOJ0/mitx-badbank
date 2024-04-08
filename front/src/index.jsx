@@ -10,6 +10,7 @@ import CreateAccount from './createaccount.jsx'
 import Withdraw from './withdraw.jsx'
 import Deposit from './deposit.jsx'
 import AllData from './alldata.jsx'
+import Login from './login.jsx'
 
 // Import bootstrap SCSS (which only includes bootstrap from install-dir)
 import './bootstrap.scss';
@@ -34,6 +35,7 @@ function Spa() {
               <Route path="/deposit/" element={<Deposit />} />
               <Route path="/withdraw/" element={<Withdraw />} />
               <Route path="/alldata/" element={<AllData />} />
+              <Route path="/login/" element={<Login />} />
             </Route>
           </Routes>
         </BrowserRouter>

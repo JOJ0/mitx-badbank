@@ -3,6 +3,29 @@ import db from './dal_connect.js';
 console.log("We are running Data Abstraction Layer.")
 // console.log(db)
 
+
+// Fetch a single user and check if the password is matching.
+async function db_user_pass(email, password){
+  try {
+    let res = await db.collection('users').findOne({
+      email: email,
+      password: password
+    });
+    console.log(`db_user_pass() checking....`);
+    if (res == null) {
+      console.error(`Email address password combination not found in db_user_pass(): ${res}`)
+    }
+    else {
+      console.log(`User is existing in db_user_pass(): ${res}`)
+    }
+    return res;
+  }
+  catch (err) {
+    console.error(`Error in db_user_pass(): ${err}`);
+    return(err);
+  }
+}
+
 // Fetch a single user
 async function db_user(email){
   try {
@@ -70,4 +93,4 @@ async function db_user_all(){
   }
 }
 
-export { db_user_create, db_user_all, db_user_update_balance, db_user };
+export { db_user_create, db_user_all, db_user_update_balance, db_user, db_user_pass };

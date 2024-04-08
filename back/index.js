@@ -28,7 +28,7 @@ app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec));
 
 /**
  * @swagger
- * /account/details/:email:
+ * /account/:email:
  *   get:
  *     summary: Retrieve a single user.
  *     description: Retrieve details of a single user account.
@@ -64,7 +64,14 @@ app.get('/account/details/:email', async (req, res) => {
   }
 })
 
-// Update user's balance route
+/**
+ * @swagger
+ * /account/update_balance/:email:
+ *   put:
+ *     summary: Update a users account balance.
+ *     description: Update a user's account balance. Pass a field "amount" as a
+ *                  number in the request body. Use a negative number for decrements.
+*/
 app.put('/account/update_balance/:email', async (req, res) => {
   if (! req.body.amount) {
     let msg = {
@@ -115,7 +122,14 @@ app.put('/account/update_balance/:email', async (req, res) => {
 })
 
 
-// Create user account route
+/**
+ * @swagger
+ * /account/:email:
+ *   post:
+ *     summary: Create a user account.
+ *     description: Create a new user account. Pass string fields "name",
+ *                  "email", "password" in the request body.
+*/
 app.post('/account/', async (req, res) => {
   if (! req.body.email || ! req.body.password) {
     let msg = {
@@ -147,7 +161,14 @@ app.post('/account/', async (req, res) => {
 })
 
 
-// List all accounts route
+/**
+ * @swagger
+ * /account/all:
+ *   get:
+ *     summary: Retrieve a list of users.
+ *     description: Retrieve a list of all existing users. No pagination is
+ *                  implemented.
+*/
 app.get('/account/all', async (req, res) => {
   try {
     let result = await db_user_all();

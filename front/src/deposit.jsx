@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from 'react';
-import { Card, apiPutRequest } from './common.jsx'
+import { Card, apiPutRequest, Footer } from './common.jsx'
 import { UserContext, getBalance, styleSubmitButton } from './common.jsx'
 
 function Deposit() {
@@ -64,6 +64,7 @@ function Deposit() {
 }
 
   return (
+    <>
     <Card
       header="Deposit"
       title={`Hi ${ctx.email}, please throw money at us!`}
@@ -83,6 +84,8 @@ function Deposit() {
       }
       txtcolor="black"
     />
+    <Footer activeUser={ctx.email} />
+    </>
   );
 }
 

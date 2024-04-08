@@ -131,3 +131,22 @@ export function Card(props) {
     </div>
   )
 }
+
+export function Footer(props) {
+  function html(props) {
+    if (props.activeUser == '') {
+      return "Not logged in. Show link."
+    }
+    else {
+      return `Logged in as ${props.activeUser}`
+    }
+  }
+
+  return(
+    <>
+    <div >
+      {html(props)}
+    </div>
+    </>
+  )
+}

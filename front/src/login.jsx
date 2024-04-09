@@ -8,21 +8,23 @@ import { auth } from './firebase_auth.jsx';
 
 function Login() {
   const [show, setShow] = useState(true);
-  const [status, setStatus] = useState("");
-  const [statusType, setStatusType] = useState('error');  // 'success' styles Card status green instead of red
+  const [status, setStatus] = useState({
+    'msg': '',
+    'type': 'error'  // 'success' styles Card status green instead of red
+  });
 
   return (
     <Card
       showComponent={true} // Login should always be shown.
       bgcolor="secondary"
       header="Login"
-      status={status}
-      statusType={statusType}
+      status={status.msg}
+      statusType={status.type}
       body={
         show ? (
-          <LoginForm setShow={setShow} setStatus={setStatus} setStatusType={setStatusType}/>
+          <LoginForm setShow={setShow} setStatus={setStatus} />
         ) : (
-          <LoginMsg setShow={setShow} setStatus={setStatus} setStatusType={setStatusType} />
+          <LoginMsg setShow={setShow} setStatus={setStatus} />
         )
       }
     />
@@ -63,18 +65,18 @@ function LoginForm(props) {
     }
     catch (err) {
       console.log("Error in handleFirebaseLogin", err);
-      props.setStatusType("error");
-      props.setStatus("Error authenticating with Firebase: " + err);
+      props.setStatus({
+        "msg": "Access denied. Firebase Auth returned: " + err,
+        "type": "error"
+      });
     }
 
     // If for some other reason we don't have a token, fail gracefully
-    if (! token) {
-      props.setStatusType("error");
-      props.setStatus("Access denied.");
-    }
-    else {
-      props.setStatusType("success");
-      props.setStatus("Successfully logged in via Firebase Auth");
+    if (token) {
+      props.setStatus({
+        "msg": "Successfully logged in via Firebase Auth.",
+        "type": "success"
+      });
       props.setShow(false);
       ctx.email = "FIXME";
       ctx.loggedIn = true;
@@ -90,10 +92,16 @@ function LoginForm(props) {
     });
     console.log("In handleLogin apiPostRequest returned:", loggedIn);
     if (loggedIn.msgType === "error") {
-      props.setStatus("Access denied.");
+      props.setStatus({
+        "msg": "Access denied. Local Auth returned: " + loggedIn.msg,
+        "type": "error"
+      });
     }
     else {
-      props.setStatus("");
+      props.setStatus({
+        "msg": "Successfully logged in via Local Auth.",
+        "type": "success"
+      });
       props.setShow(false);
       ctx.email = loggedIn.data.email;
       ctx.loggedIn = true;

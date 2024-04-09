@@ -17,7 +17,7 @@ function Deposit() {
       setBalance(apiResult);
     }
     fetchData();
-  }, []);
+  }, [ctx.loggedIn]);
 
   async function handleDeposit() {
     if (!validate(depositValue, 'deposit')) return;

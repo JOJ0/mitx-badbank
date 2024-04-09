@@ -17,7 +17,7 @@ function Withdraw() {
       setBalance(apiResult);
     }
     fetchData();
-  }, []);
+  }, [ctx.loggedIn]);
 
   async function handleWithdraw() {
     if (!validate(withdrawValue, 'withdraw')) return;

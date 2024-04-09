@@ -26,7 +26,7 @@ function Withdraw() {
 
     let balanceUpdated = await apiPutRequest(
       `/api/account/update_balance/${ctx.email}`,
-      {amount: parseInt(-depositValue)}
+      {amount: parseInt(-withdrawValue)}
     );
     console.log("In handleWithdraw apiPutRequest returned:", balanceUpdated);
 
@@ -39,7 +39,6 @@ function Withdraw() {
     console.log('Function validate got value: ', value);
     let err = false;
     let errMsg = ""
-    let wouldBeBalance = 0;
 
     if (value == 0) {
       errMsg = `C'mon, that is not enough! (Zero Amount Warning)`;
@@ -53,13 +52,12 @@ function Withdraw() {
       errMsg = `You don't get it, do you? You want money money money (NaN Warning)!`;
       err = true;
     }
-    else if ((ctx.users[0].balance - parseInt(withdrawValue)) <0) {
+    else if ((balance - parseInt(withdrawValue)) < 0) {
       errMsg = `Won't you stop now? Nothing left!`;
       err = true;
     }
     else {
       setStatus('');
-      setBalance(ctx.users[0].balance);
     }
 
   if (err) {

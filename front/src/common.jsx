@@ -1,7 +1,7 @@
-import React from 'react'
+import { createContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 // exporting commonly used hooks
-export const UserContext = React.createContext(null);
+export const UserContext = createContext(null);
 
 
 export async function apiPutRequest(url, data) {

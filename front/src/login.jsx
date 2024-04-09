@@ -1,6 +1,9 @@
 import { useState, useContext } from 'react';
 
-import { Card, apiPostRequest,  UserContext } from './common.jsx'
+import { signInWithEmailAndPassword } from 'firebase/auth';
+
+import { Card, apiPostRequest, UserContext } from './common.jsx'
+import { auth } from './firebase_auth.jsx';
 
 
 function Login() {
@@ -43,6 +46,27 @@ function LoginForm(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const ctx = useContext(UserContext);
+
+
+  async function handleFirebaseLogin(e) {
+    e.preventDefault();
+
+    const fbAuthResponse = await signInWithEmailAndPassword(auth, email, password)
+    console.log("In handleFirebaseLogin signIn method responded:", fbAuthResponse);
+    const token = await fbAuthResponse.user.getIdToken();
+    console.log("In handleFirebaseLogin getIdToken responded:", token);
+
+    if (! token) {
+      props.setStatus("Access denied.");
+    }
+    else {
+      props.setStatus("");
+      props.setShow(false);
+      ctx.email = "FIXME";
+      ctx.loggedIn = true;
+      console.log("We've set ctx to user data:", ctx);
+    }
+  }
 
   async function handleLogin(e) {
     e.preventDefault();
@@ -87,6 +111,9 @@ function LoginForm(props) {
       <br />
       <button type="submit" className="btn btn-light" onClick={handleLogin}>
         Login
+      </button>
+      <button type="submit" className="btn btn-light" onClick={handleFirebaseLogin}>
+        Login with Firebase
       </button>
     </>
   );

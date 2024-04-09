@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom'
 
+import { createUserWithEmailAndPassword } from 'firebase/auth'
+
 import { Card, apiPostRequest } from './common.jsx'
 import useCreateAccountForm from './createaccounthook.jsx'
 

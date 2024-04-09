@@ -1,4 +1,4 @@
-import React from 'react'
+import { StrictMode, useState } from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
@@ -22,12 +22,14 @@ import './styles.css';
 
 
 function Spa() {
+  const [userData, setUserData] = useState({
+    email: '',
+    loggedIn: false
+  });
 
   return (
       <>
-      <UserContext.Provider value={
-        {email:"",loggedIn:false}
-      }>
+      <UserContext.Provider value={userData}>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<App />}>
@@ -47,7 +49,7 @@ function Spa() {
 }
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+  <StrictMode>
     <Spa />
-  </React.StrictMode>,
+  </StrictMode>,
 )

@@ -6,6 +6,7 @@ function useCreateAccountForm(initialValues) {
   console.log(stateObj);
 
   function handle(e) {
+    e.preventDefault();
     if (e.type === "change") {
       // console.log("In custom hook useCreateAccountForm id is:", e.target.id);
       // console.log("In custom hook useCreateAccountForm type:", e.target.type);

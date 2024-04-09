@@ -19,7 +19,8 @@ function Withdraw() {
     fetchData();
   }, [ctx.loggedIn]);
 
-  async function handleWithdraw() {
+  async function handleWithdraw(e) {
+    e.preventDefault();
     if (!validate(withdrawValue, 'withdraw')) return;
     // If we made it through here, no errors noted.
 

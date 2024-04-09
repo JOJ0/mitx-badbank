@@ -44,7 +44,8 @@ function LoginForm(props) {
   const [password, setPassword] = useState("");
   const ctx = useContext(UserContext);
 
-  async function handleLogin() {
+  async function handleLogin(e) {
+    e.preventDefault();
     let loggedIn = await apiPostRequest('/api/account/login', {
       email: email,
       password: password

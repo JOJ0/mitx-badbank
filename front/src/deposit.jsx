@@ -19,7 +19,8 @@ function Deposit() {
     fetchData();
   }, [ctx.loggedIn]);
 
-  async function handleDeposit() {
+  async function handleDeposit(e) {
+    e.preventDefault();
     if (!validate(depositValue, 'deposit')) return;
     // If we made it to here, no errors noted.
 

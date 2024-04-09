@@ -1,8 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext} from 'react';
 import { Table } from 'react-bootstrap';
-import { Card, apiGetRequest } from './common.jsx'
+
+import { UserContext, Card, apiGetRequest, Footer } from './common.jsx'
+
 
 function AllData() {
+  const ctx = useContext(UserContext);
   const [users, setUsers] = useState([]);
   useEffect(() => {
     // Fetch all accounts via API endpoint /api/account/all and set state.
@@ -31,7 +34,9 @@ function AllData() {
   };
 
   return (
+    <>
     <Card
+      showComponent={true} // For now AllData should always be shown. We don't have a role system yet
       header="All User accounts (FIXME this will never be shown to a single user)"
       title="Your personal termination overview."
       text={"Money loss guaranteed!"}
@@ -55,6 +60,8 @@ function AllData() {
       }
       txtcolor="black"
     />
+    <Footer activeUser={ctx.email} />
+    </>
   );
 }
 

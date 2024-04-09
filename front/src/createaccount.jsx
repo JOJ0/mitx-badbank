@@ -1,7 +1,9 @@
 import { useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
+
 import { Card, apiPostRequest } from './common.jsx'
 import useCreateAccountForm from './createaccounthook.jsx'
+
 
 function CreateAccount(){
   const [show, setShow]         = useState(true);
@@ -69,8 +71,9 @@ function CreateAccount(){
 
   return (
     <Card
+      showComponent={true}  // CreateAccount should always be visible!
       bgcolor="primary"
-      header="Create Account"
+      header="Sign Up"
       status={status}
       body={show ? (
         <>

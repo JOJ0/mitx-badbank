@@ -1,4 +1,6 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
+// exporting commonly used hooks
 export const UserContext = React.createContext(null);
 
 
@@ -105,6 +107,7 @@ export async function getBalance(email) {
   return userFetched.data.balance;
 }
 
+
 export function Card(props) {
   function classes() {
     const bg = props.bgcolor ? 'bg-' + props.bgcolor : ' ';
@@ -116,26 +119,49 @@ export function Card(props) {
     let style = 'card-footer card-status-error'
     if (props.statusType == 'success') style = 'card-footer card-status-success'
     return style
-
   }
 
-  return(
-    <div className={classes()} style={{maxWidth: "28rem"}}>
-      <div className="card-header">{props.header}</div>
-      <div className="card-body">
-        {props.title && (<h5 className="card-title">{props.title}</h5>)}
-        {props.text && (<p className="card-text">{props.text}</p>)}
-        {props.body}
+  if (! props.showComponent) {
+    return <></>
+  }
+  else {
+    return(
+      <div className={classes()} style={{maxWidth: "28rem"}}>
+        <div className="card-header">{props.header}</div>
+        <div className="card-body">
+          {props.title && (<h5 className="card-title">{props.title}</h5>)}
+          {props.text && (<p className="card-text">{props.text}</p>)}
+          {props.body}
+        </div>
+        {props.status && props.status !== '' && (<div className={statusClasses()}>{props.status}</div>)}
       </div>
-      {props.status && props.status !== '' && (<div className={statusClasses()}>{props.status}</div>)}
-    </div>
-  )
+    )
+  }
 }
 
 export function Footer(props) {
-  function html(props) {
+  const Navigate = useNavigate();
+
+  function buttonOrInfo(props) {
     if (props.activeUser == '') {
-      return "Not logged in. Show link."
+      return (
+        <>
+        <button
+          type="submit"
+          className="btn btn-light"
+          onClick={() => Navigate('/login')}
+        >
+          Login
+        </button>
+        <button
+          type="submit"
+          className="btn btn-light"
+          onClick={() => Navigate('/createaccount')}
+        >
+          Sign Up
+        </button>
+        </>
+      )
     }
     else {
       return `Logged in as ${props.activeUser}`
@@ -144,8 +170,8 @@ export function Footer(props) {
 
   return(
     <>
-    <div >
-      {html(props)}
+    <div className="">
+      {buttonOrInfo(props)}
     </div>
     </>
   )

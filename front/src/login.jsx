@@ -1,6 +1,6 @@
-import { useState, useContext, useEffect } from 'react';
-import { Card, apiPostRequest } from './common.jsx'
-import { UserContext } from './common.jsx'
+import { useState, useContext } from 'react';
+
+import { Card, apiPostRequest,  UserContext } from './common.jsx'
 
 
 function Login() {
@@ -9,6 +9,7 @@ function Login() {
 
   return (
     <Card
+      showComponent={true} // Login should always be shown.
       bgcolor="secondary"
       header="Login"
       status={status}
@@ -57,7 +58,7 @@ function LoginForm(props) {
       props.setShow(false);
       ctx.email = loggedIn.data.email;
       ctx.loggedIn = true;
-      console.log("Weve set ctx to user data:", ctx);
+      console.log("We've set ctx to user data:", ctx);
     }
   }
 

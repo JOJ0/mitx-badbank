@@ -44,12 +44,6 @@ function NavBar() {
 
         <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
           <ul className="navbar-nav me-auto mb-lg-0">
-            <li className="nav-item" name="nav-create"
-              onMouseOver={() => handleMouseOver(event, 'nav-create')}
-              onMouseOut={() => handleMouseOut(event, 'nav-create')}
-            >
-              <NavLink className="nav-link" to="/createaccount/">CreateAccount</NavLink>
-            </li>
             <li className="nav-item" name="nav-deposit"
               onMouseOver={() => handleMouseOver(event, 'nav-deposit')}
               onMouseOut={() => handleMouseOut(event, 'nav-deposit')}

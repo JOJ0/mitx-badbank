@@ -1,17 +1,14 @@
-import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+
+import { UserContext, Footer } from './common.jsx'
+
 
 function Logout() {
-  const Navigate = useNavigate();
+  const ctx = useContext(UserContext);
   return (
     <>
-      <h5>You are logged out!</h5>
-      <button
-        type="submit"
-        className="btn btn-light"
-        onClick={() => Navigate('/login')}
-      >
-        Login
-      </button>
+    <h5>You are logged out!</h5>
+    <Footer activeUser={ctx.email} />
     </>
   );
 }

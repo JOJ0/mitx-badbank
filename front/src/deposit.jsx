@@ -1,6 +1,7 @@
 import { useState, useContext, useEffect } from 'react';
-import { Card, apiPutRequest, Footer } from './common.jsx'
-import { UserContext, getBalance, styleSubmitButton } from './common.jsx'
+
+import { Card, apiPutRequest, Footer, UserContext, getBalance, styleSubmitButton} from './common.jsx'
+
 
 function Deposit() {
   const ctx = useContext(UserContext);
@@ -66,6 +67,7 @@ function Deposit() {
   return (
     <>
     <Card
+      showComponent={ctx.loggedIn}  // Depending on this boolean hide or show
       header="Deposit"
       title={`Hi ${ctx.email}, please throw money at us!`}
       text={`Current balance: ${balance}`}

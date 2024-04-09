@@ -1,6 +1,7 @@
 import { useState, useContext, useEffect } from 'react';
-import { Card, apiGetRequest } from './common.jsx'
-import { UserContext, getBalance, styleSubmitButton } from './common.jsx'
+
+import { Card, apiPutRequest, Footer, UserContext, getBalance, styleSubmitButton} from './common.jsx'
+
 
 function Withdraw() {
   const ctx = useContext(UserContext);
@@ -71,7 +72,9 @@ function Withdraw() {
 }
 
   return (
+    <>
     <Card
+      showComponent={ctx.loggedIn}
       header="Withdraw"
       title={`Hi ${ctx.email}, try to take money from us!`}
       text={`Current balance: ${balance}`}
@@ -90,6 +93,8 @@ function Withdraw() {
       }
       txtcolor="black"
     />
+    <Footer activeUser={ctx.email} />
+    </>
   );
 }
 

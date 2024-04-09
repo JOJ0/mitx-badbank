@@ -9,6 +9,7 @@ import { auth } from './firebase_auth.jsx';
 function Login() {
   const [show, setShow] = useState(true);
   const [status, setStatus] = useState("");
+  const [statusType, setStatusType] = useState('error');  // 'success' styles Card status green instead of red
 
   return (
     <Card
@@ -16,11 +17,12 @@ function Login() {
       bgcolor="secondary"
       header="Login"
       status={status}
+      statusType={statusType}
       body={
         show ? (
-          <LoginForm setShow={setShow} setStatus={setStatus} />
+          <LoginForm setShow={setShow} setStatus={setStatus} setStatusType={setStatusType}/>
         ) : (
-          <LoginMsg setShow={setShow} setStatus={setStatus} />
+          <LoginMsg setShow={setShow} setStatus={setStatus} setStatusType={setStatusType} />
         )
       }
     />
@@ -50,17 +52,29 @@ function LoginForm(props) {
 
   async function handleFirebaseLogin(e) {
     e.preventDefault();
+    let fbAuthResponse = null;
+    let token = null;
 
-    const fbAuthResponse = await signInWithEmailAndPassword(auth, email, password)
-    console.log("In handleFirebaseLogin signIn method responded:", fbAuthResponse);
-    const token = await fbAuthResponse.user.getIdToken();
-    console.log("In handleFirebaseLogin getIdToken responded:", token);
+    try {
+      fbAuthResponse = await signInWithEmailAndPassword(auth, email, password)
+      console.log("In handleFirebaseLogin signIn method responded:", fbAuthResponse);
+      token = await fbAuthResponse.user.getIdToken();
+      console.log("In handleFirebaseLogin getIdToken responded:", token);
+    }
+    catch (err) {
+      console.log("Error in handleFirebaseLogin", err);
+      props.setStatusType("error");
+      props.setStatus("Error authenticating with Firebase: " + err);
+    }
 
+    // If for some other reason we don't have a token, fail gracefully
     if (! token) {
+      props.setStatusType("error");
       props.setStatus("Access denied.");
     }
     else {
-      props.setStatus("");
+      props.setStatusType("success");
+      props.setStatus("Successfully logged in via Firebase Auth");
       props.setShow(false);
       ctx.email = "FIXME";
       ctx.loggedIn = true;

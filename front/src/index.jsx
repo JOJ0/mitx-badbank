@@ -24,7 +24,8 @@ import './styles.css';
 function Spa() {
   const [userData, setUserData] = useState({
     email: '',
-    loggedIn: false
+    loggedIn: false,
+    firebase: false
   });
 
   return (

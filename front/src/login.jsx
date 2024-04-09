@@ -57,12 +57,17 @@ function LoginForm(props) {
     e.preventDefault();
     let fbAuthResponse = null;
     let token = null;
+    let firebaseEmail = null;
+    let firebaseUID = null;
 
     try {
       fbAuthResponse = await signInWithEmailAndPassword(auth, email, password)
       console.log("In handleFirebaseLogin signIn method responded:", fbAuthResponse);
       token = await fbAuthResponse.user.getIdToken();
       console.log("In handleFirebaseLogin getIdToken responded:", token);
+      firebaseEmail = fbAuthResponse.user.email;
+      firebaseUID = fbAuthResponse.user.uid;
+      console.log("In handleFirebaseLogin Firebase email/UID are:", firebaseEmail, firebaseUID);
     }
     catch (err) {
       console.log("Error in handleFirebaseLogin", err);
@@ -72,16 +77,34 @@ function LoginForm(props) {
       });
     }
 
-    // If for some other reason we don't have a token, fail gracefully
-    if (token) {
-      props.setStatus({
-        "msg": "Successfully logged in via Firebase Auth.",
-        "type": "success"
+    // Early exit if we don't have a token or Firebase Data
+    if (! token || ! firebaseEmail | firebaseUID) {
+      return
+    }
+    else {
+      // Check for local user with that Firebass auth email address
+      let loggedIn = await apiPostRequest('/api/account/firebaselogin', {
+        firebaseEmail,
+        firebaseUID,
       });
-      props.setShow(false);
-      ctx.email = "FIXME";
-      ctx.loggedIn = true;
-      console.log("We've set ctx to user data:", ctx);
+      console.log("In handleFirebaseLogin apiPostRequest searching local email returned:", loggedIn);
+      if (loggedIn.msgType === "error") {
+        props.setStatus({
+          "msg": "Access denied. Firebase User not in local DB: " + loggedIn.msg,
+          "type": "error"
+        });
+      }
+      else {
+        props.setStatus({
+          "msg": "Successfully logged in via Firebase Auth and user is in local DB.",
+          "type": "success"
+        });
+        props.setShow(false);
+        ctx.email = loggedIn.data.email;
+        ctx.loggedIn = true;
+        ctx.firebase = true;
+        console.log("We've set ctx to user data:", ctx);
+      }
     }
   }
 

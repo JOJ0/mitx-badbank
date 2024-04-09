@@ -26,6 +26,57 @@ const swaggerOptions = {
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
 app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec));
 
+/**
+ * @swagger
+ * /account/firebaselogin:
+ *   post:
+ *     summary: Check for an existing email and Firebase UID combination.
+ *     description: Login to an Firebase user account using the UID. Pass "email", and "fbuid" in the request body.
+*/
+app.post('/account/firebaselogin', async (req, res) => {
+  console.log("Endpoint got body:", req.body)
+  if (! req.body.firebaseEmail || ! req.body.firebaseUID) {
+    let msg = {
+      "msgType": "error",
+      "msg": `Error in /account/firebaselogin endpoint while trying to login: Missing data.`,
+    }
+    console.error(msg);
+    res.send(msg).status(500);
+    return
+  }
+  try {
+    let loggedInUser = await db_user_pass(req.body.firebaseEmail, req.body.firebaseUID)
+    let msg;
+    if (loggedInUser == null) {
+      msg = {
+        "msgType": "error",
+        "msg": "User and Firebase UID combination NOT existing. Deny login.",
+        "data": null,
+      }
+      console.log(msg);
+      res.send(msg).status(401);
+    }
+    else
+    {
+      msg = {
+        "msgType": "success",
+        "msg": "User and password combination existing. Allow login.",
+        "data": loggedInUser,
+      }
+      console.log(msg);
+      res.send(msg).status(200);
+    }
+  }
+  catch (err) {
+    let msg = {
+      "msgType": "error",
+      "msg": `Database error in /account/firebaselogin endpoint while trying to request user: ${err}`,
+    }
+    console.error(msg);
+    res.send(msg).status(500);
+  }
+})
+
 
 /**
  * @swagger
@@ -115,6 +166,7 @@ app.get('/account/:email', async (req, res) => {
     res.send(msg).status(500);
   }
 })
+
 
 /**
  * @swagger

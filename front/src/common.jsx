@@ -143,7 +143,7 @@ export function Footer(props) {
   const Navigate = useNavigate();
 
   function buttonOrInfo(props) {
-    if (props.activeUser == '') {
+    if (props.activeUser == '' || props.logout == true) {  // Set logout to true to workaround async behaviour of setting ctx vars.
       return (
         <>
         <button

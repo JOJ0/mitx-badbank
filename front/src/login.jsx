@@ -1,6 +1,7 @@
 import { useState, useContext } from 'react';
 
 import { signInWithEmailAndPassword } from 'firebase/auth';
+import { NavLink } from 'react-router-dom';
 
 import { Card, apiPostRequest, UserContext } from './common.jsx'
 import { auth } from './firebase_auth.jsx';
@@ -137,6 +138,9 @@ function LoginForm(props) {
       <button type="submit" className="btn btn-light" onClick={handleFirebaseLogin}>
         Login with Firebase
       </button>
+      <NavLink to="/createaccount" >
+          Sign up!
+      </NavLink>
     </>
   );
 }

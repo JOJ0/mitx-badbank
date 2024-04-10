@@ -62,7 +62,7 @@ app.delete('/accounts/clear', async (req, res) => {
  * /account/firebaselogin:
  *   post:
  *     summary: Check for an existing email and Firebase UID combination.
- *     description: Login to an Firebase user account using the UID. Pass "email", and "fbuid" in the request body.
+ *     description: Login to a Firebase user account. Pass "email", and "firebaseUID" in the request body.
 */
 app.post('/account/firebaselogin', async (req, res) => {
   console.log("Endpoint got body:", req.body)
@@ -259,7 +259,7 @@ app.put('/account/update_balance/:email', async (req, res) => {
 
 /**
  * @swagger
- * /account/:email:
+ * /account:
  *   post:
  *     summary: Create a user account.
  *     description: Create a new user account. Pass string fields "name",

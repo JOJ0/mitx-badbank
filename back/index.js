@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import { db_user_create, db_user_all, db_user_update_balance, db_user, db_user_pass } from './dal.js';
+import { db_user_create, db_user_all, db_user_update_balance, db_user, db_user_pass, db_clear } from './dal.js';
 import swaggerJSDoc from "swagger-jsdoc";
 import swaggerUI from 'swagger-ui-express';
 import bodyParser from 'body-parser';
@@ -25,6 +25,37 @@ const swaggerOptions = {
 };
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
 app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec));
+
+
+/**
+ * @swagger
+ * /accounts/clear:
+ *   delete:
+ *     summary: Clears all user data.
+ *     description: Deletes all data from user collection. Experimental endpoint. Currently unprotected. FIXME
+*/
+app.delete('/accounts/clear', async (req, res) => {
+  console.log("/accounts/clear endpoint active."); 
+  try {
+    let cleared = await db_clear();
+    let msg = {
+        "msgType": "success",
+        "msg": "User collection cleared.",
+        "data": cleared,
+      }
+      console.log(msg);
+      res.send(msg).status(200);
+  }
+  catch (err) {
+    let msg = {
+      "msgType": "error",
+      "msg": `Database error in /accounts/clear endpoint: ${err}`,
+    }
+    console.error(msg);
+    res.send(msg).status(500);
+  }
+})
+
 
 /**
  * @swagger

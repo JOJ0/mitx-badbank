@@ -4,6 +4,20 @@ console.log("We are running Data Abstraction Layer.")
 // console.log(db)
 
 
+
+// Clear all data from the users collection
+async function db_clear() {
+  try {
+    let res = await db.collection('users').drop();
+    console.log(`db_clear() returns: ${res}`)
+    return res;
+  }
+  catch (err) {
+    console.error(`Error in db_clear(): ${err}`);
+    return(err);
+  }
+}
+
 // Fetch a single user and check if the password is matching.
 async function db_user_pass(email, password){
   try {
@@ -100,4 +114,4 @@ async function db_user_all(){
   }
 }
 
-export { db_user_create, db_user_all, db_user_update_balance, db_user, db_user_pass };
+export { db_user_create, db_user_all, db_user_update_balance, db_user, db_user_pass, db_clear };

@@ -27,6 +27,7 @@ function AllData() {
           <td>{row.email}</td>
           <td>redacted</td>
           <td>{row.balance}</td>
+          <td>{row.firebaseUID}</td>
         </tr>
       );
     });
@@ -50,6 +51,7 @@ function AllData() {
               <th>Email</th>
               <th>Password</th>
               <th>Balance</th>
+              <th>firebaseUID</th>
             </tr>
           </thead>
           <tbody>

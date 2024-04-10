@@ -37,9 +37,9 @@ function AllData() {
     <>
     <Card
       showComponent={true} // For now AllData should always be shown. We don't have a role system yet
-      header="All User accounts (FIXME this will never be shown to a single user)"
-      title="Your personal termination overview."
-      text={"Money loss guaranteed!"}
+      header="Admin View"
+      title="Lists all existing user accounts"
+      text={"This is currently unproteced and requires a role concept"}
       body={
         <>
         <Table striped bordered hover>

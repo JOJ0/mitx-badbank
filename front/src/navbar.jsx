@@ -56,12 +56,6 @@ function NavBar() {
             >
               <NavLink className="nav-link" to="/withdraw/">Withdraw</NavLink>
             </li>
-            <li className="nav-item" name="nav-data"
-              onMouseOver={() => handleMouseOver(event, 'nav-data')}
-              onMouseOut={() => handleMouseOut(event, 'nav-data')}
-            >
-              <NavLink className="nav-link" to="/alldata/">AllData</NavLink>
-            </li>
             <li className="nav-item" name="nav-logout"
               onMouseOver={() => handleMouseOver(event, 'nav-logout')}
               onMouseOut={() => handleMouseOut(event, 'nav-logout')}

@@ -38,7 +38,7 @@ function Spa() {
               <Route path="/createaccount/" element={<CreateAccount />} />
               <Route path="/deposit/" element={<Deposit />} />
               <Route path="/withdraw/" element={<Withdraw />} />
-              <Route path="/alldata/" element={<AllData />} />
+              <Route path="/admin/" element={<AllData />} />
               <Route path="/login/" element={<Login />} />
               <Route path="/logout/" element={<Logout />} />
             </Route>

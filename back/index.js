@@ -235,15 +235,18 @@ app.put('/account/update_balance/:email', async (req, res) => {
  *                  "email", "password" in the request body.
 */
 app.post('/account/', async (req, res) => {
-  if (! req.body.email || ! req.body.password) {
+  console.log("/account endpoint got:", req.body)
+  if ((! req.body.email || ! (req.body.password || req.body.firebaseUID))) {
     let msg = {
       "msgType": "error",
-      "msg": `Error in /account/ endpoint while trying to create new user: Missing data.`,
+      "msg": `Error in /account/ endpoint while trying to create new user: Missing data. Either email/password or email/firebaseUID is required`,
     }
     console.error(msg);
     res.send(msg).status(500);
     return
   }
+
+
   try {
     let newUser = await db_user_create(req.body.name, req.body.email, req.body.password)
     let msg = {

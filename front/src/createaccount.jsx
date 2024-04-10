@@ -5,11 +5,15 @@ import { createUserWithEmailAndPassword } from 'firebase/auth'
 
 import { Card, apiPostRequest } from './common.jsx'
 import useCreateAccountForm from './createaccounthook.jsx'
+import { auth } from './firebase_auth.jsx';
 
 
 function CreateAccount(){
   const [show, setShow]         = useState(true);
-  const [status, setStatus]     = useState('');
+  const [status, setStatus]     = useState({
+      'msg': '',
+      'type': 'error'
+  });
   const {formFields, handleChange, resetForm} = useCreateAccountForm({
     name: '',
     email: '',
@@ -20,20 +24,72 @@ function CreateAccount(){
     if (!field) {
       const errMsg = `Field '${label}' is empty!`;
       console.log(errMsg);
-      setStatus('Error: ' + errMsg);
+      setStatus({
+        "msg": "Creating user failed. Validation error: " + errMsg,
+        "type": "error"
+      });
       //setTimeout(() => setStatus('', 3000));
       return false;
     }
     return true;
   }
 
-  function handleCreate() {
+  async function handleFirebaseCreate(e) {
+    e.preventDefault();
+    console.log("handleFirebaseCreate received:", name.value, email.value, "password redacted!");
+    let fbCreateResponse = null;
+    let firebaseEmail = null;
+    let firebaseUID = null;
+    if (!validate(formFields.name, 'name')) return;
+    if (!validate(formFields.email, 'email')) return;
+    if (!validate(formFields.password, 'password')) return;
+    // If we made it to here, no validation errors noted.
+
+    // Create new user in Firebase
+    try {
+      fbCreateResponse = await createUserWithEmailAndPassword(auth, email.value, password.value)
+      console.log("In handleFirebaseCreate signIn method responded:", fbCreateResponse);
+      firebaseEmail = fbCreateResponse.user.email;
+      firebaseUID = fbCreateResponse.user.uid;
+      console.log("In handleFirebaseCreate Firebase email/UID are:", firebaseEmail, firebaseUID);
+    }
+    catch (err) {
+      console.log("ErrorCode in handleFirebaseCreate", err.code);
+      console.log("ErrorMessage in handleFirebaseCreate", err.message);
+      setStatus({
+        "msg": "Creating user failed. Firebase Auth returned: " + err,
+        "type": "error"
+      });
+    }
+
+    // Early exit if Firebase user creation was unsuccessful
+    if (! firebaseEmail || ! firebaseUID) {
+      return;
+    }
+    else {
+      // Create new user in App DB
+      let created = apiPostRequest('/api/account', {
+        name: formFields.name,
+        email: formFields.email,
+        firebaseUID: firebaseUID,
+        password: ''  // Empty passwords always deny _local_ login!
+      });
+      console.log("In handleFirebaseCreate apiPostRequest returned:", created);
+      setStatus({
+        "msg": "",
+        "type": "success"
+      });
+      setShow(false);
+    }
+  }
+
+  function handleCreate(e) {
+    e.preventDefault();
     console.log("handleCreate received:", name, email, password);
     if (!validate(formFields.name, 'name')) return;
     if (!validate(formFields.email, 'email')) return;
     if (!validate(formFields.password, 'password')) return;
     // If we made it to here, no errors noted.
-    setStatus('');
     // Create new user in App DB
     let created = apiPostRequest('/api/account', {
       name: formFields.name,
@@ -41,8 +97,10 @@ function CreateAccount(){
       password: formFields.password
     });
     console.log("In handleCreate apiPostRequest returned:", created);
-    // Create new user in Firebase
-    // FIXME
+    setStatus({
+      "msg": "",
+      "type": "success"
+    });
     setShow(false);
   }
 
@@ -55,7 +113,10 @@ function CreateAccount(){
       email: '',
       password: '',
     });
-    setStatus('');
+    setStatus({
+      "msg": "",
+      "type": "success"
+    });
     setShow(true);
   }
 
@@ -76,7 +137,8 @@ function CreateAccount(){
       showComponent={true}  // CreateAccount should always be visible!
       bgcolor="primary"
       header="Sign Up"
-      status={status}
+      status={status.msg}
+      statusType={status.type}
       body={show ? (
         <>
         <form className="">
@@ -88,6 +150,7 @@ function CreateAccount(){
           <input type="password" className="form-control" id="password" placeholder="Enter password" value={formFields.password} onChange={handleChange} /><br/>
 
           <button type="submit" className={styleSubmitButton()} onClick={handleCreate}>Create account</button>
+          <button type="submit" className={styleSubmitButton()} onClick={handleFirebaseCreate}>Create Firebase account</button>
         </form>
         <div className="">
           <p className="mt-2 card-note">

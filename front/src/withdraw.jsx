@@ -18,7 +18,7 @@ function Withdraw() {
       console.log("This is apiResult:", apiResult)
       setBalance(apiResult);
     }
-    fetchData();
+    if (ctx.loggedIn) fetchData();
   }, [status]);
 
   async function handleWithdraw(e) {

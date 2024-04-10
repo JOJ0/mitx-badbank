@@ -18,6 +18,28 @@ async function db_clear() {
   }
 }
 
+// Fetch a single user and check if it has a matching firebaseUID.
+async function db_user_firebase(email, firebaseUID){
+  try {
+    let res = await db.collection('users').findOne({
+      email,
+      firebaseUID
+    });
+    console.log(`db_user_firebase() checking....`);
+    if (res == null) {
+      console.error(`Email address and firebaseUID combination not found in db_user_firebase(): ${res}`)
+    }
+    else {
+      console.log(`User is existing and has a firebaseUID in db_user_firebase(): ${res}`)
+    }
+    return res;
+  }
+  catch (err) {
+    console.error(`Error in db_user_firebase(): ${err}`);
+    return(err);
+  }
+}
+
 // Fetch a single user and check if the password is matching.
 async function db_user_pass(email, password){
   try {
@@ -118,4 +140,4 @@ async function db_user_all(){
   }
 }
 
-export { db_user_create, db_user_all, db_user_update_balance, db_user, db_user_pass, db_clear };
+export { db_user_create, db_user_all, db_user_update_balance, db_user, db_user_pass, db_user_firebase, db_clear };

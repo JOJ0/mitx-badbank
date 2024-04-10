@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import { db_user_create, db_user_all, db_user_update_balance, db_user, db_user_pass, db_clear } from './dal.js';
+import { db_user_create, db_user_all, db_user_update_balance, db_user, db_user_pass, db_user_firebase, db_clear } from './dal.js';
 import swaggerJSDoc from "swagger-jsdoc";
 import swaggerUI from 'swagger-ui-express';
 import bodyParser from 'body-parser';
@@ -76,7 +76,7 @@ app.post('/account/firebaselogin', async (req, res) => {
     return
   }
   try {
-    let loggedInUser = await db_user_pass(req.body.firebaseEmail, req.body.firebaseUID)
+    let loggedInUser = await db_user_firebase(req.body.firebaseEmail, req.body.firebaseUID)
     let msg;
     if (loggedInUser == null) {
       msg = {
@@ -279,7 +279,7 @@ app.post('/account/', async (req, res) => {
 
 
   try {
-    let newUser = await db_user_create(req.body.name, req.body.email, req.body.password)
+    let newUser = await db_user_create(req.body.name, req.body.email, req.body.password, req.body.firebaseUID)
     let msg = {
       "msgType": "success",
       "msg": "Created user.",

@@ -82,18 +82,22 @@ async function db_user_update_balance(email, amount) {
 }
 
 // Create user account
-async function db_user_create(name, email, password, firebaseUID=null){
-  console.log("db_user_create got:", firebaseUID)
+async function db_user_create(name, email, password, firebaseUID){
+  console.log("db_user_create got: name:", name)
+  console.log("db_user_create got: email:", email)
+  console.log("db_user_create got: password:", password)
+  console.log("db_user_create got: firebaseUID:", firebaseUID)
   let newData;
   if (firebaseUID) {
-    newData = {name, email, password, balance: 0};
+    newData = {name, email, password, balance: 0, firebaseUID};
   }
   else {
-    newData = {name, email, password, balance: 0, firebaseUID};
+    newData = {name, email, password, balance: 0};
   }
   try {
     let res = await db.collection('users').insertOne(newData);
     console.log(`db_user_create() inserted, id:${res.insertedId}`)
+    console.log(`db_user_create() inserted, the whole data object:${res}`)
     return res;
   }
   catch (err) {

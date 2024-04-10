@@ -7,8 +7,10 @@ function Withdraw() {
   const ctx = useContext(UserContext);
   const [withdrawValue, setWithdrawValue] = useState('');
   const [balance, setBalance] = useState(0);  // We want a re-render when this state changes
-  const [status, setStatus] = useState('');
-  const [statusType, setStatusType] = useState('error');  // 'success' styles Card status green instead of red
+  const [status, setStatus] = useState({
+    "msg": "",
+    "type": "error"
+  });
 
   useEffect(() => {
     async function fetchData() {
@@ -17,7 +19,7 @@ function Withdraw() {
       setBalance(apiResult);
     }
     fetchData();
-  }, [ctx.loggedIn]);
+  }, [status]);
 
   async function handleWithdraw(e) {
     e.preventDefault();
@@ -29,10 +31,10 @@ function Withdraw() {
       {amount: parseInt(-withdrawValue)}
     );
     console.log("In handleWithdraw apiPutRequest returned:", balanceUpdated);
-
-    setStatus("Thanks for your withdrawal. Remember? Your money's terminated already!");
-    setStatusType('success')
-    setBalance(balanceUpdated.data.balance);
+    setStatus({
+      "msg": "Thanks for your withdrawal. Remember? Your money's terminated already!",
+      "type": "success"
+    });
   }
 
   function validate(value, label) {
@@ -56,17 +58,20 @@ function Withdraw() {
       errMsg = `Won't you stop now? Nothing left!`;
       err = true;
     }
-    else {
-      setStatus('');
-    }
 
   if (err) {
     console.log(errMsg);
-    setStatus('Error: ' + errMsg);
-    setStatusType('error')
+    setStatus({
+      "msg": "Error: " + errMsg,
+      "type": "error"
+    });
     //setTimeout(() => setStatus('', 3000));
     return false;
   }
+  setStatus({
+    "msg": "",
+    "type": "success"
+  });
   return true;
 }
 
@@ -77,8 +82,8 @@ function Withdraw() {
       header="Withdraw"
       title={`Hi ${ctx.email}, try to take money from us!`}
       text={`Current balance: ${balance}`}
-      status={status}
-      statusType={statusType}
+      status={status.msg}
+      statusType={status.type}
       body={
         <>
         <form>

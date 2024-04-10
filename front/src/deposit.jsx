@@ -7,8 +7,10 @@ function Deposit() {
   const ctx = useContext(UserContext);
   const [depositValue, setDepositValue] = useState('');
   const [balance, setBalance] = useState(0);  // We want a re-render when this state changes
-  const [status, setStatus] = useState('');
-  const [statusType, setStatusType] = useState('error');  // 'success' styles Card status green instead of red
+  const [status, setStatus] = useState({
+    "msg": "",
+    "type": "error"
+  });
 
   useEffect(() => {
     async function fetchData() {
@@ -17,7 +19,7 @@ function Deposit() {
       setBalance(apiResult);
     }
     fetchData();
-  }, [ctx.loggedIn]);
+  }, [status]);
 
   async function handleDeposit(e) {
     e.preventDefault();
@@ -29,10 +31,10 @@ function Deposit() {
       {amount: parseInt(depositValue)}
     );
     console.log("In handleDeposit apiPutRequest returned:", balanceUpdated);
-
-    setStatus("Thanks for your deposit. Consider your money terminated!");
-    setStatusType('success')
-    setBalance(balanceUpdated.data.balance);
+    setStatus({
+      "msg": "Thanks for your deposit. Consider your money terminated!",
+      "type": "success"
+    });
   }
 
   function validate(value, label) {
@@ -51,17 +53,20 @@ function Deposit() {
       errMsg = `You don't get it, do you? We want money money money (NaN Warning)!`;
       err = true;
     }
-    else {
-      setStatus('');
-    }
 
   if (err) {
     console.log(errMsg);
-    setStatus('Error: ' + errMsg);
-    setStatusType('error')
+    setStatus({
+      "msg": "Error: " + errMsg,
+      "type": "error"
+    });
     //setTimeout(() => setStatus('', 3000));
     return false;
   }
+  setStatus({
+    "msg": "",
+    "type": "success"
+  });
   return true;
 }
 
@@ -72,8 +77,8 @@ function Deposit() {
       header="Deposit"
       title={`Hi ${ctx.email}, please throw money at us!`}
       text={`Current balance: ${balance}`}
-      status={status}
-      statusType={statusType}
+      status={status.msg}
+      statusType={status.type}
       body={
         <>
         <form>

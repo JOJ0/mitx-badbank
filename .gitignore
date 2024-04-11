@@ -7,6 +7,8 @@ requirements*/
 .env.development.local
 .env.test.local
 .env.production.local
+# Support the default value of dotenv
+.env
 
 # The following came from vite refactor
 

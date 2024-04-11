@@ -1,4 +1,9 @@
 import express from 'express';
+import path from 'path';
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 import cors from 'cors';
 import { db_user_create, db_user_all, db_user_update_balance, db_user, db_user_pass, db_user_firebase, db_clear } from './dal.js';
 import swaggerJSDoc from "swagger-jsdoc";
@@ -7,7 +12,6 @@ import bodyParser from 'body-parser';
 
 // Initialize express API
 var app = express();
-app.use(express.static('public'));
 app.use(cors());
 // Support POST requests
 app.use(bodyParser.json())
@@ -328,6 +332,12 @@ app.get('/accounts', async (req, res) => {
   }
 })
 
-var port = 3000;
+
+app.use(express.static(path.join(__dirname, 'front/dist/build')));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname + 'front/dist/build'));
+});
+
+var port = process.env.port || 3000;
 app.listen(port);
 console.log('Running on port ' + port);

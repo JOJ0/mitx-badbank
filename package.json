@@ -4,12 +4,15 @@
   "description": "The whole app, manages backend and frontend",
   "main": "back/index.js",
   "type": "module",
+  "engines": {
+    "node": "20.x"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node --prefix back index.js",
     "install": "cd front && npm install",
     "dev": "concurrently -n Bck,Frn 'nodemon back/index.js' 'npm --prefix ./front run dev'",
-    "heroku-postbuild": "cd client && npm install && npm run build"
+    "heroku-postbuild": "cd front && npm install && npm run build"
   },
   "author": "J0J0 Todos",
   "license": "MIT",

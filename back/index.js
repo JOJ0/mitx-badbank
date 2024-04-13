@@ -4,11 +4,14 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+import 'dotenv/config';
 import cors from 'cors';
-import { db_user_create, db_user_all, db_user_update_balance, db_user, db_user_pass, db_user_firebase, db_clear } from './dal.js';
 import swaggerJSDoc from "swagger-jsdoc";
 import swaggerUI from 'swagger-ui-express';
 import bodyParser from 'body-parser';
+
+import { db_user_create, db_user_all, db_user_update_balance, db_user, db_user_pass, db_user_firebase, db_clear } from './dal.js';
+
 
 // Initialize express API
 var app = express();
@@ -338,6 +341,7 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname + 'front/dist/build'));
 });
 
-var port = process.env.port || 3000;
+var port = process.env.PORT || 3000;
 app.listen(port);
 console.log('Running on port ' + port);
+

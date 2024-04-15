@@ -339,11 +339,11 @@ app.get('/accounts', async (req, res) => {
 
 
 // app.use(express.static(path.join(__dirname, 'front/dist')));
-let joinedPath = path.join(__dirname, 'front/dist')
+let joinedPath = path.join(__dirname, '../front/dist')
 console.log("DEBUG joinedPath:", joinedPath)
 app.use(express.static(joinedPath));
 
-let joinedPathPlus = path.join(__dirname + 'front/dist')
+let joinedPathPlus = path.join(__dirname, '../front/dist')
 console.log("DEBUG joinedPath concat with plus character:", joinedPathPlus)
 app.get('*', (req, res) => {
   res.sendFile(joinedPathPlus);

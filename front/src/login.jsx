@@ -83,7 +83,7 @@ function LoginForm(props) {
     }
     else {
       // Check for local user with that Firebass auth email address
-      let loggedIn = await apiPostRequest('/api/account/firebaselogin', {
+      let loggedIn = await apiPostRequest('/account/firebaselogin', {
         firebaseEmail,
         firebaseUID,
       });
@@ -110,7 +110,7 @@ function LoginForm(props) {
 
   async function handleLogin(e) {
     e.preventDefault();
-    let loggedIn = await apiPostRequest('/api/account/login', {
+    let loggedIn = await apiPostRequest('/account/login', {
       email: email,
       password: password
     });

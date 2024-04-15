@@ -27,7 +27,7 @@ function Withdraw() {
     // If we made it through here, no errors noted.
 
     let balanceUpdated = await apiPutRequest(
-      `/api/account/update_balance/${ctx.email}`,
+      `/account/update_balance/${ctx.email}`,
       {amount: parseInt(-withdrawValue)}
     );
     console.log("In handleWithdraw apiPutRequest returned:", balanceUpdated);

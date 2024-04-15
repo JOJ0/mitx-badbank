@@ -27,7 +27,7 @@ function Deposit() {
     // If we made it to here, no errors noted.
 
     let balanceUpdated = await apiPutRequest(
-      `/api/account/update_balance/${ctx.email}`,
+      `/account/update_balance/${ctx.email}`,
       {amount: parseInt(depositValue)}
     );
     console.log("In handleDeposit apiPutRequest returned:", balanceUpdated);

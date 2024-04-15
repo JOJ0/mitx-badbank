@@ -100,7 +100,7 @@ export function styleSubmitButton(depositValue) {
 
 export async function getBalance(email) {
   // Fetch via API
-  const url = `/api/account/${email}`;
+  const url = `/account/${email}`;
   console.log("In getBalance url is:", url);
   let userFetched = await apiGetRequest(url);
   console.log("In getBalance received from API:", userFetched);

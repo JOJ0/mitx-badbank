@@ -68,7 +68,7 @@ function CreateAccount(){
     }
     else {
       // Create new user in App DB
-      let created = apiPostRequest('/api/account', {
+      let created = apiPostRequest('/account', {
         name: formFields.name,
         email: formFields.email,
         firebaseUID: firebaseUID,
@@ -91,7 +91,7 @@ function CreateAccount(){
     if (!validate(formFields.password, 'password')) return;
     // If we made it to here, no errors noted.
     // Create new user in App DB
-    let created = apiPostRequest('/api/account', {
+    let created = apiPostRequest('/account', {
       name: formFields.name,
       email: formFields.email,
       password: formFields.password

@@ -336,9 +336,9 @@ app.get('/accounts', async (req, res) => {
 })
 
 
-app.use(express.static(path.join(__dirname, 'front/dist/build')));
+app.use(express.static(path.join(__dirname, 'front/dist')));
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname + 'front/dist/build'));
+  res.sendFile(path.join(__dirname + 'front/dist'));
 });
 
 var port = process.env.PORT || 3000;

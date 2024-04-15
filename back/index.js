@@ -3,6 +3,8 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+console.log("DEBUG __filename, it is:", __filename)
+console.log("DEBUG __dirname, it is:", __dirname)
 
 import 'dotenv/config';
 import cors from 'cors';
@@ -336,9 +338,16 @@ app.get('/accounts', async (req, res) => {
 })
 
 
-app.use(express.static(path.join(__dirname, 'front/dist')));
+// app.use(express.static(path.join(__dirname, 'front/dist')));
+let joinedPath = path.join(__dirname, 'front/dist')
+console.log("DEBUG joinedPath:", joinedPath)
+app.use(express.static(joinedPath));
+
+let joinedPathPlus = path.join(__dirname + 'front/dist')
+console.log("DEBUG joinedPath concat with plus character:", joinedPathPlus)
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname + 'front/dist'));
+  res.sendFile(joinedPathPlus);
+  // res.sendFile(path.join(__dirname + 'front/dist'));
 });
 
 var port = process.env.PORT || 3000;
